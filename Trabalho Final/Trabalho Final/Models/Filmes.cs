@@ -33,6 +33,7 @@ namespace Trabalho_Final.Models
 
         public virtual ICollection<Categorias> Lista_Categorias { get; set; }
 
+        public virtual ICollection<Multimedia> Lista_Multimedia { get; set; }
 
     }
 }

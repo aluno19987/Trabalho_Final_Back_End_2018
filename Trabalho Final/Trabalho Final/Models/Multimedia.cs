@@ -12,7 +12,6 @@ namespace Trabalho_Final.Models
 
         public Multimedia()
         {
-            Lista_Filmes = new HashSet<Filmes>();
         }
 
         [Key]
@@ -27,7 +26,7 @@ namespace Trabalho_Final.Models
         public int FilmeFK { get; set; }
         public virtual Filmes Filme { get; set; }
 
-        public virtual ICollection<Filmes> Lista_Filmes { get; set; }
+        
 
     }
 }

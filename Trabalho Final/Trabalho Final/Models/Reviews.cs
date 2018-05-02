@@ -19,7 +19,7 @@ namespace Trabalho_Final.Models
         public string Data { get; set; }
 
 
-        [ForeignKey("Id_utilizador")]
+        [ForeignKey("Utilizador")]
         public int UtilizadorFK { get; set; }
         public virtual Utilizadores Utilizador { get; set; }
 
