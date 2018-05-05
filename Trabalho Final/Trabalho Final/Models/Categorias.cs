@@ -21,5 +21,6 @@ namespace Trabalho_Final.Models
         public string Nome { get; set; }
 
         public virtual ICollection<Filmes> Lista_Filmes { get; set; }
+        
     }
 }

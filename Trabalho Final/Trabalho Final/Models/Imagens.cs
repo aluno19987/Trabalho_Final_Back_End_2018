@@ -7,20 +7,18 @@ using System.Web;
 
 namespace Trabalho_Final.Models
 {
-    public class Multimedia
+    public class Imagens
     {
 
-        public Multimedia()
+        public Imagens()
         {
         }
 
         [Key]
-        public int Id_mult { get; set; }
+        public int Id_img { get; set; }
 
         [StringLength(40)]
         public string Nome { get; set; }
-
-        public string Tipo { get; set; }
 
         [ForeignKey("Filme")]
         public int FilmeFK { get; set; }

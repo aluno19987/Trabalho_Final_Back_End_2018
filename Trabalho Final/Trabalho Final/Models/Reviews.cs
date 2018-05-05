@@ -12,20 +12,18 @@ namespace Trabalho_Final.Models
         [Key]
         public int Id_Review { get; set; }
 
+        public string Titulo_review { get; set; }
+        
         public string Review { get; set; }
 
         public int NStars { get; set; }
 
         public string Data { get; set; }
 
-
-        [ForeignKey("Utilizador")]
-        public int UtilizadorFK { get; set; }
-        public virtual Utilizadores Utilizador { get; set; }
-
-
         [ForeignKey("Filme")]
         public int FilmeFK { get; set; }
         public virtual Filmes Filme { get; set; }
+        
+            
     }
 }

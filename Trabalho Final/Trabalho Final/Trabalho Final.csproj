@@ -107,9 +107,8 @@
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\Filmes.cs" />
     <Compile Include="Models\FilmesDb.cs" />
-    <Compile Include="Models\Multimedia.cs" />
+    <Compile Include="Models\Imagens.cs" />
     <Compile Include="Models\Reviews.cs" />
-    <Compile Include="Models\Utilizadores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
