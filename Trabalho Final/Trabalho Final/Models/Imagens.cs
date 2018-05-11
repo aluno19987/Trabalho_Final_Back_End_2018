@@ -9,13 +9,9 @@ namespace Trabalho_Final.Models
 {
     public class Imagens
     {
-
-        public Imagens()
-        {
-        }
-
+        
         [Key]
-        public int Id_img { get; set; }
+        public int IdImg { get; set; }
 
         [StringLength(40)]
         public string Nome { get; set; }
@@ -23,8 +19,6 @@ namespace Trabalho_Final.Models
         [ForeignKey("Filme")]
         public int FilmeFK { get; set; }
         public virtual Filmes Filme { get; set; }
-
-        
 
     }
 }

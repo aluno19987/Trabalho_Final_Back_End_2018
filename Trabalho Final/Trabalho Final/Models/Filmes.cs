@@ -11,36 +11,39 @@ namespace Trabalho_Final.Models
 
         public Filmes()
         {
-            Lista_Reviews = new HashSet<Reviews>();
+            ListaReviews = new HashSet<Reviews>();
 
-            Lista_Categorias = new HashSet<Categorias>();
+            ListaCategorias = new HashSet<Categorias>();
+
+            ListaImagens = new HashSet<Imagens>();
+
+            ListaPersonagens = new HashSet<Personagens>();
         }
 
         [Key]
-        public int Id_filme { get; set; }
+        public int IdFilme { get; set; }
 
-        [StringLength(40)]
         public string Nome { get; set; }
 
-        public string Data_lancamento { get; set; }
+        public DateTime DataLancamento { get; set; }
 
         public string Realizador { get; set; }
 
         public string Companhia { get; set; }
 
-        public string Elenco { get; set; }
-
-        public string Duracao { get; set; }
+        public int Duracao { get; set; }
 
         public string Trailer { get; set; }
 
         public string Cartaz { get; set; }
 
-        public virtual ICollection<Reviews> Lista_Reviews { get; set; }
+        public virtual ICollection<Reviews> ListaReviews { get; set; }
 
-        public virtual ICollection<Categorias> Lista_Categorias { get; set; }
+        public virtual ICollection<Categorias> ListaCategorias { get; set; }
 
-        public virtual ICollection<Imagens> Lista_Imagens { get; set; }
+        public virtual ICollection<Imagens> ListaImagens { get; set; }
+
+        public virtual ICollection<Personagens> ListaPersonagens { get; set; }
 
        
     }

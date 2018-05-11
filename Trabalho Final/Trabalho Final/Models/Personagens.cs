@@ -7,23 +7,23 @@ using System.Web;
 
 namespace Trabalho_Final.Models
 {
-    public class Reviews
+    public class Personagens
     {
         [Key]
-        public int IdReview { get; set; }
+        public int IdPersonagem { get; set; }
 
-        public string TituloReview { get; set; }
-        
-        public string Review { get; set; }
+        public string Nome { get; set; }
 
-        public int NStars { get; set; }
-
-        public DateTime Data { get; set; }
+        public string Imagem { get; set; }
 
         [ForeignKey("Filme")]
         public int FilmeFK { get; set; }
         public virtual Filmes Filme { get; set; }
+
+        [ForeignKey("Ator")]
+        public int AtorFK { get; set; }
+        public virtual Atores Ator { get; set; }
+
         
-            
     }
 }

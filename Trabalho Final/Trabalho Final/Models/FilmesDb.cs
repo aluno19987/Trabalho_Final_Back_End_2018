@@ -23,5 +23,8 @@ namespace Trabalho_Final.Models
 
         public virtual DbSet<Reviews> Reviews { get; set; }
 
+        public virtual DbSet<Atores> Atores { get; set; }
+
+        public virtual DbSet<Personagens> Personagens { get; set; }
     }
 }

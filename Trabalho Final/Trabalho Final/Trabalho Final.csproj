@@ -104,10 +104,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Atores.cs" />
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\Filmes.cs" />
     <Compile Include="Models\FilmesDb.cs" />
     <Compile Include="Models\Imagens.cs" />
+    <Compile Include="Models\Personagens.cs" />
     <Compile Include="Models\Reviews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

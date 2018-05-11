@@ -11,16 +11,16 @@ namespace Trabalho_Final.Models
 
         public Categorias()
         {
-            Lista_Filmes = new HashSet<Filmes>();
+            ListaFilmes = new HashSet<Filmes>();
         }
 
         [Key]
-        public int Id_categoria { get; set; }
+        public int IdCategoria { get; set; }
 
         [StringLength(40)]
         public string Nome { get; set; }
 
-        public virtual ICollection<Filmes> Lista_Filmes { get; set; }
+        public virtual ICollection<Filmes> ListaFilmes { get; set; }
         
     }
 }
