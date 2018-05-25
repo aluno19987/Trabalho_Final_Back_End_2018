@@ -11,7 +11,7 @@ namespace Trabalho_Final.Models
     {
         [Key]
         public int IdPersonagem { get; set; }
-
+         
         public string Nome { get; set; }
 
         public string Imagem { get; set; }

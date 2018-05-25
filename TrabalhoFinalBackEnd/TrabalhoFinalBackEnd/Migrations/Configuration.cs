@@ -28,11 +28,11 @@ namespace TrabalhoFinalBackEnd.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
+            
             //*********************************************************************
             // adiciona Filmes
             var filmes = new List<Filmes> {
-                 new Filmes {IdFilme=1, Nome="Avengers: Infinity War", DataLancamento=new DateTime(2018,4,25), Realizador="Anthony Russo, Joe Russo",Companhia="Marvel", Duracao=149, Trailer="6ZfuNTqbHE8&t", Cartaz="img_cartaz_1.jpg"},
+                 new Filmes {IdFilme=1, Nome="Avengers: Infinity War", DataLancamento=new DateTime(2018,4,25), Realizador="Anthony Russo",Companhia="Marvel", Duracao=149, Trailer="6ZfuNTqbHE8&t", Cartaz="img_cartaz_1.jpg"},
                  new Filmes {IdFilme=2, Nome="Deadpool", DataLancamento=new DateTime(2016,2,11), Realizador="Tim Miller",Companhia="Marvel", Duracao=108, Trailer="Xithigfg7dA", Cartaz="img_cartaz_2.jpg"},
                  new Filmes {IdFilme=3, Nome="The Shape of Water", DataLancamento=new DateTime(2018,2,1), Realizador="Guillermo del Toro",Companhia="Fox Searchlight Pictures", Duracao=123, Trailer="XFYWazblaUA", Cartaz="img_cartaz_3.jpg"},
                  new Filmes {IdFilme=4, Nome="CHIPS", DataLancamento=new DateTime(2017,3,23), Realizador="Dax Shepard",Companhia="Warner Bros.", Duracao=100, Trailer="0IfqqUTW-i4", Cartaz="img_cartaz_4.jpg"},
@@ -145,25 +145,25 @@ namespace TrabalhoFinalBackEnd.Migrations
             };
             reviews.ForEach(rr => context.Reviews.AddOrUpdate(r => r.IdReview, rr));
             context.SaveChanges();
-
+            
             var categorias = new List<Categorias> {
-                new Categorias {IdCategoria=1,Nome="Action", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[3] } },
-                new Categorias {IdCategoria=2,Nome="Adventure", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[2] } },
-                new Categorias {IdCategoria=3,Nome="Comedy", ListaFilmes=new List<Filmes>{ filmes[1], filmes[3] } },
+                new Categorias {IdCategoria=1,Nome="Ação", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[3] } },
+                new Categorias {IdCategoria=2,Nome="Aventura", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[2] } },
+                new Categorias {IdCategoria=3,Nome="Comedia", ListaFilmes=new List<Filmes>{ filmes[1], filmes[3] } },
                 new Categorias {IdCategoria=4,Nome="Crime", ListaFilmes=new List<Filmes>{ filmes[3] } },
                 new Categorias {IdCategoria=5,Nome="Crossover", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=6,Nome="Drama", ListaFilmes=new List<Filmes>{ filmes[2], filmes[4] } },
-                new Categorias {IdCategoria=7,Nome="Fantazy", ListaFilmes=new List<Filmes>{ filmes[0], filmes[2] } },
-                new Categorias {IdCategoria=8,Nome="Horror", ListaFilmes=new List<Filmes>{ } },
+                new Categorias {IdCategoria=7,Nome="Fantazia", ListaFilmes=new List<Filmes>{ filmes[0], filmes[2] } },
+                new Categorias {IdCategoria=8,Nome="Terror", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=9,Nome="Musical", ListaFilmes=new List<Filmes>{ } },
-                new Categorias {IdCategoria=10,Nome="Philosophy", ListaFilmes=new List<Filmes>{ } },
-                new Categorias {IdCategoria=11,Nome="Political", ListaFilmes=new List<Filmes>{ } },
-                new Categorias {IdCategoria=12,Nome="Religious", ListaFilmes=new List<Filmes>{ } },
+                new Categorias {IdCategoria=10,Nome="Filosofia", ListaFilmes=new List<Filmes>{ } },
+                new Categorias {IdCategoria=11,Nome="Político", ListaFilmes=new List<Filmes>{ } },
+                new Categorias {IdCategoria=12,Nome="Religioso", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=13,Nome="Road", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=14,Nome="Romance", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=15,Nome="Sci-Fi", ListaFilmes=new List<Filmes>{ filmes[4] } },
-                new Categorias {IdCategoria=16,Nome="Sports", ListaFilmes=new List<Filmes>{ } },
-                new Categorias {IdCategoria=17,Nome="Spy", ListaFilmes=new List<Filmes>{ } },
+                new Categorias {IdCategoria=16,Nome="Desporto", ListaFilmes=new List<Filmes>{ } },
+                new Categorias {IdCategoria=17,Nome="Espião", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=18,Nome="Thriller", ListaFilmes=new List<Filmes>{ filmes[4] } }
             };
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.IdCategoria, cc));

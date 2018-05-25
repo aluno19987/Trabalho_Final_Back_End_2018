@@ -15,7 +15,7 @@ namespace Trabalho_Final.Models
 
         [Key]
         public int IdAtor { get; set; }
-
+        
         public string Nome { get; set; }
 
         public DateTime DataNascimento { get; set; }

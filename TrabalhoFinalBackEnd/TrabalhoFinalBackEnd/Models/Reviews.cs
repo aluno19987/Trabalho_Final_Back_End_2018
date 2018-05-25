@@ -15,7 +15,7 @@ namespace Trabalho_Final.Models
         public string TituloReview { get; set; }
         
         public string Review { get; set; }
-
+        
         public int NStars { get; set; }
 
         public DateTime Data { get; set; }

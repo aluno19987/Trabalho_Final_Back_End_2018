@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Trabalho_Final.Models.Filmes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataLancamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Realizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Companhia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duracao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trailer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cartaz)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataLancamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Realizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Companhia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duracao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trailer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cartaz)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdFilme }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdFilme }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdFilme })
+        </td>
+    </tr>
+}
+
+</table>

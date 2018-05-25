@@ -25,6 +25,7 @@ namespace Trabalho_Final.Models
 
         public string Nome { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataLancamento { get; set; }
 
         public string Realizador { get; set; }
