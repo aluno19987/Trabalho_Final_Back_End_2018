@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using TrabalhoFinalBackEnd.Models;
 using Trabalho_Final.Models;
+using System.IO;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
+    [RoutePrefix("movies")]
     public class FilmesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -26,7 +28,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
@@ -47,16 +49,47 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filmes)
+        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
+            // determinar o ID do novo Agente
+            int novoID = 0;
+            // *****************************************
+            // proteger a geração de um novo ID
+            // *****************************************
+            // determinar o nº de Agentes na tabela
+            if (db.Filmes.Count() == 0)
+            {
+                novoID = 1;
+            }
+            else
+            {
+                novoID = db.Filmes.Max(a => a.IdFilme) + 1;
+            }
+            // atribuir o ID ao novo agente
+            filme.IdFilme = novoID;
+
+            filme.Trailer = filme.Trailer.Substring(32);
+            string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/imagens/"), nomeFotografia); // indica onde a imagem será guardada
+            
+            // guardar o nome da imagem na BD
+            filme.Cartaz = nomeFotografia;
+            if (fileUploadCartaz == null)
+            {
+                // não há imagem...
+                ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
+                return View(filme); // reenvia os dados do 'Agente' para a View
+            }
+
             if (ModelState.IsValid)
             {
-                db.Filmes.Add(filmes);
+                db.Filmes.Add(filme);
                 db.SaveChanges();
+                fileUploadCartaz.SaveAs(caminhoParaFotografia);
                 return RedirectToAction("Index");
             }
 
-            return View(filmes);
+            return View(filme);
         }
 
         // GET: Filmes/Edit/5
@@ -64,12 +97,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
+            filmes.Trailer = "https://www.youtube.com/watch?v=" + filmes.Trailer;
+
             if (filmes == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(filmes);
         }
@@ -79,15 +114,20 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filmes)
+        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
+            filme.Trailer = filme.Trailer.Substring(32);
+            string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeFotografia); // indica onde a imagem será guardada
+            
             if (ModelState.IsValid)
             {
-                db.Entry(filmes).State = EntityState.Modified;
+                db.Entry(filme).State = EntityState.Modified;
                 db.SaveChanges();
+                fileUploadCartaz.SaveAs(caminhoParaFotografia);
                 return RedirectToAction("Index");
             }
-            return View(filmes);
+            return View(filme);
         }
 
         // GET: Filmes/Delete/5
@@ -95,7 +135,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)

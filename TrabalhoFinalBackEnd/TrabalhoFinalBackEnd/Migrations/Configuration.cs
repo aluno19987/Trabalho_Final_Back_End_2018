@@ -28,19 +28,19 @@ namespace TrabalhoFinalBackEnd.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            
+
             //*********************************************************************
             // adiciona Filmes
             var filmes = new List<Filmes> {
-                 new Filmes {IdFilme=1, Nome="Avengers: Infinity War", DataLancamento=new DateTime(2018,4,25), Realizador="Anthony Russo",Companhia="Marvel", Duracao=149, Trailer="6ZfuNTqbHE8&t", Cartaz="img_cartaz_1.jpg"},
+                 new Filmes {IdFilme=1, Nome="Avengers: Infinity War", DataLancamento=new DateTime(2018,4,25), Realizador="Anthony Russo",Companhia="Marvel", Duracao=149, Trailer="6ZfuNTqbHE8", Cartaz="img_cartaz_1.jpg"},
                  new Filmes {IdFilme=2, Nome="Deadpool", DataLancamento=new DateTime(2016,2,11), Realizador="Tim Miller",Companhia="Marvel", Duracao=108, Trailer="Xithigfg7dA", Cartaz="img_cartaz_2.jpg"},
                  new Filmes {IdFilme=3, Nome="The Shape of Water", DataLancamento=new DateTime(2018,2,1), Realizador="Guillermo del Toro",Companhia="Fox Searchlight Pictures", Duracao=123, Trailer="XFYWazblaUA", Cartaz="img_cartaz_3.jpg"},
                  new Filmes {IdFilme=4, Nome="CHIPS", DataLancamento=new DateTime(2017,3,23), Realizador="Dax Shepard",Companhia="Warner Bros.", Duracao=100, Trailer="0IfqqUTW-i4", Cartaz="img_cartaz_4.jpg"},
-                 new Filmes {IdFilme=5, Nome="Passengers ", DataLancamento=new DateTime(2016,12,22), Realizador="Morten Tyldum", Companhia="Sony Pictures Entertainment", Duracao=116, Trailer="7BWWWQzTpNU", Cartaz="img_cartaz_5.jpg"}
+                 new Filmes {IdFilme=5, Nome="Passengers", DataLancamento=new DateTime(2016,12,22), Realizador="Morten Tyldum", Companhia="Sony Pictures Entertainment", Duracao=116, Trailer="7BWWWQzTpNU", Cartaz="img_cartaz_5.jpg"}
             };
             filmes.ForEach(ff => context.Filmes.AddOrUpdate(f => f.IdFilme, ff));
             context.SaveChanges();
-
+            
             //*********************************************************************
             // adiciona Filmes
             var reviews = new List<Reviews> {

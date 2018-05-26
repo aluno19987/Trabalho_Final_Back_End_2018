@@ -17,6 +17,9 @@ namespace Trabalho_Final.Models
         [Key]
         public int IdCategoria { get; set; }
 
+
+        [Required(ErrorMessage = "The {0} is required!")]
+        [Display(Name = "Name")]
         [StringLength(40)]
         public string Nome { get; set; }
 

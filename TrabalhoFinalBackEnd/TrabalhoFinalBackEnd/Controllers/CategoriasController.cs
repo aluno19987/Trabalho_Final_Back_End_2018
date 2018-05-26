@@ -11,6 +11,7 @@ using Trabalho_Final.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
+    [RoutePrefix("Categories")]
     public class CategoriasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

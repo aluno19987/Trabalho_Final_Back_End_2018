@@ -1,69 +1,33 @@
 ﻿@model IEnumerable<Trabalho_Final.Models.Filmes>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Moveis";
 }
 
-<h2>Index</h2>
+<h2>Movies</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataLancamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Realizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Companhia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duracao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trailer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cartaz)
-        </th>
-        <th></th>
-    </tr>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        
+            <div class="col-lg-4 col-md-4 col-sm-6" style="padding-bottom:20px;">
+                <div class="card">
+                    <a href="/Filmes/Details/@item.IdFilme">
+                        <img class="card-img-top" src="~/ImagensCartaz/@item.Cartaz" width="250px" height="400px" />
+                    </a>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataLancamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Realizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Companhia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duracao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trailer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cartaz)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdFilme }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdFilme }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdFilme })
-        </td>
-    </tr>
-}
-
-</table>
+                    <h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
+                    <div>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdFilme }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdFilme })
+                    </div>
+                </div>
+            </div>
+        
+         }
+    </div>
+</div>

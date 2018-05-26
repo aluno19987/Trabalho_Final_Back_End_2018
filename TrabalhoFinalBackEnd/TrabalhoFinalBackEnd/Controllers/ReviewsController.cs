@@ -11,6 +11,7 @@ using Trabalho_Final.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
+    [RoutePrefix("Reviews")]
     public class ReviewsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

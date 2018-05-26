@@ -10,10 +10,16 @@ namespace Trabalho_Final.Models
     public class Personagens
     {
         [Key]
+        [Display(Name = "Number")]
         public int IdPersonagem { get; set; }
-         
+
+        [Required(ErrorMessage = "The {0} is required!")]
+        [RegularExpression("[A-Za-záéíóúãõàèìòùâêîôûäëïöüç.:() 0-9-]+", ErrorMessage = "The {0} is not acceptable")]
+        [Display(Name = "Name")]
         public string Nome { get; set; }
 
+        [Required(ErrorMessage = "The {0} is required!")]
+        [Display(Name = "Image")]
         public string Imagem { get; set; }
 
         [ForeignKey("Filme")]

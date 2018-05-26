@@ -11,6 +11,7 @@ using Trabalho_Final.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
+    [RoutePrefix("Caracter")]
     public class PersonagensController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

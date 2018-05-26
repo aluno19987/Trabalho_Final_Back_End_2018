@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Filmes", FormMethod.Post,new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataLancamento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataLancamento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DataLancamento, new { htmlAttributes = new { @class = "form-control", @Value = Model.DataLancamento } })
                 @Html.ValidationMessageFor(model => model.DataLancamento, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -68,7 +68,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cartaz, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cartaz, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="fileUploadCartaz" style="color:blue;" accept=".jpg" />
+
                 @Html.ValidationMessageFor(model => model.Cartaz, "", new { @class = "text-danger" })
             </div>
         </div>
