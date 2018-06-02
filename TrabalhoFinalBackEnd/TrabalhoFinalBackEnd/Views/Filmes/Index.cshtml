@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Trabalho_Final.Models.Filmes>
 
 @{
-    ViewBag.Title = "Moveis";
+    ViewBag.Title = "Movies";
 }
 
 <h2>Movies</h2>
@@ -17,7 +17,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6" style="padding-bottom:20px;">
                 <div class="card">
                     <a href="/Filmes/Details/@item.IdFilme">
-                        <img class="card-img-top" src="~/ImagensCartaz/@item.Cartaz" width="250px" height="400px" />
+                        <img class="card-img-top" src="~/ImagensCartaz/@item.Cartaz" style="width:250px; height:400px" />
                     </a>
 
                     <h3>@Html.DisplayFor(modelItem => item.Nome)</h3>

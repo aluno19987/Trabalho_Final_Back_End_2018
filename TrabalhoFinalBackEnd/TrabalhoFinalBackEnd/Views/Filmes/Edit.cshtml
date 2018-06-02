@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>@Model.Nome</h2>
 
 
 @using (Html.BeginForm("Edit", "Filmes", FormMethod.Post,new { enctype = "multipart/form-data" }))
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Filmes</h4>
+        <h4>Edit</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdFilme)
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataLancamento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataLancamento, new { htmlAttributes = new { @class = "form-control", @Value = Model.DataLancamento } })
+                @Html.EditorFor(model => model.DataLancamento, new { htmlAttributes = new { @class = "form-control", @Value = Model.DataLancamento.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.DataLancamento, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,8 +58,19 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Resumo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Resumo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Resumo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Trailer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <div class="embed-responsive embed-responsive-16by9" >
+                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/@Model.Trailer.Substring(32)?rel=0" style="width:500px; height:300px" frameborder="0" allowfullscreen></iframe>
+                </div>
                 @Html.EditorFor(model => model.Trailer, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
             </div>
@@ -68,8 +79,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cartaz, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <img class="card-img-top" src="~/ImagensCartaz/@Model.Cartaz" style="width:250px; height:400px; padding-bottom:5px;" />
                 <input type="file" name="fileUploadCartaz" style="color:blue;" accept=".jpg" />
-
                 @Html.ValidationMessageFor(model => model.Cartaz, "", new { @class = "text-danger" })
             </div>
         </div>

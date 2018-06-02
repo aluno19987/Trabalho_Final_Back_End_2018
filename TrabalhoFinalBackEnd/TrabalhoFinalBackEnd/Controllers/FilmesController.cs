@@ -49,7 +49,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
             // determinar o ID do novo Agente
             int novoID = 0;
@@ -114,17 +114,20 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
             filme.Trailer = filme.Trailer.Substring(32);
-            string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
-            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeFotografia); // indica onde a imagem será guardada
-            
+            string nomeCartaz = "img_cartaz_" + filme.IdFilme + ".jpg";
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeCartaz); // indica onde a imagem será guardada
+            filme.Cartaz = nomeCartaz;
+
             if (ModelState.IsValid)
             {
                 db.Entry(filme).State = EntityState.Modified;
                 db.SaveChanges();
-                fileUploadCartaz.SaveAs(caminhoParaFotografia);
+                if (fileUploadCartaz != null) { 
+                    fileUploadCartaz.SaveAs(caminhoParaFotografia);
+                }
                 return RedirectToAction("Index");
             }
             return View(filme);

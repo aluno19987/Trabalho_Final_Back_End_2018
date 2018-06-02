@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Trabalho_Final.Models.Categorias>
+
+@{
+    ViewBag.Title = "PartialIndex";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@foreach (var item in Model)
+{
+    <div>
+        <a class="">
+            <span>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </span>
+        </a>
+        <span>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IdCategoria }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IdCategoria }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdCategoria })
+        </span>
+    </div>
+}
+

@@ -44,11 +44,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Duracao)
+            @Html.DisplayNameFor(model => model.Duracao) 
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Duracao)
+            @Html.DisplayFor(model => model.Duracao) minutes
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resumo) 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resumo) 
         </dd>
 
         <dt>
@@ -56,7 +64,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trailer)
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="//www.youtube.com/embed/@Model.Trailer?rel=0" style="width:500px; height:300px" frameborder="0" allowfullscreen></iframe>
+            </div>
         </dd>
 
         <dt>
@@ -64,7 +74,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cartaz)
+            <img class="card-img-top" src="~/ImagensCartaz/@Model.Cartaz" style="width:250px; height:400px; padding-bottom:5px;" />
         </dd>
 
     </dl>

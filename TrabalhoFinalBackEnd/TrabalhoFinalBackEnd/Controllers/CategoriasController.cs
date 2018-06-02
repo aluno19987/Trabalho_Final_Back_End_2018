@@ -22,6 +22,12 @@ namespace TrabalhoFinalBackEnd.Controllers
             return View(db.Categorias.ToList());
         }
 
+        [Route("/Partial")]
+        public ActionResult PartialIndex()
+        {
+            return PartialView(db.Categorias.ToList());
+        }
+
         // GET: Categorias/Details/5
         public ActionResult Details(int? id)
         {
