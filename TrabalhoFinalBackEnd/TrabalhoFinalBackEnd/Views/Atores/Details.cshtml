@@ -1,0 +1,33 @@
+﻿@model Trabalho_Final.Models.Atores
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Atores</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="/ImagensAtores/@Model.Imagem" style="max-height:550px; max-width:350px"/>
+            </div>
+            <div class="col-lg-8">
+                <p>
+                    <b>@Html.DisplayNameFor(model => model.Nome)</b>: @Html.DisplayFor(model => model.Nome)
+                </p>
+                <p>
+                    <b>@Html.DisplayNameFor(model => model.DataNascimento)</b>: @Html.DisplayFor(model => model.DataNascimento)
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAtor }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

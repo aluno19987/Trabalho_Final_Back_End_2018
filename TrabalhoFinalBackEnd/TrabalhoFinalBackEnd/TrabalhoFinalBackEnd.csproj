@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AtoresController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\FilmesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -281,16 +282,17 @@
     <Content Include="Views\Filmes\Index.cshtml" />
     <Content Include="Views\Imagens\Create.cshtml" />
     <Content Include="Views\Imagens\Delete.cshtml" />
-    <Content Include="Views\Imagens\Details.cshtml" />
-    <Content Include="Views\Imagens\Edit.cshtml" />
-    <Content Include="Views\Imagens\Index.cshtml" />
-    <Content Include="Views\Reviews\Create.cshtml" />
-    <Content Include="Views\Reviews\Delete.cshtml" />
-    <Content Include="Views\Reviews\Details.cshtml" />
-    <Content Include="Views\Reviews\Edit.cshtml" />
-    <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\Categorias\_CategoriasPartial.cshtml" />
-    <Content Include="Views\Filmes\_reviews.cshtml" />
+    <Content Include="Views\Filmes\_ReviewsPartial.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Filmes\_ImagensPartial.cshtml" />
+    <Content Include="Views\Atores\Create.cshtml" />
+    <Content Include="Views\Atores\Delete.cshtml" />
+    <Content Include="Views\Atores\Details.cshtml" />
+    <Content Include="Views\Atores\Edit.cshtml" />
+    <Content Include="Views\Atores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,10 +33,12 @@ namespace TrabalhoFinalBackEnd.Controllers
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(filmes);
         }
+
+
 
         // GET: Filmes/Create
         public ActionResult Create()
@@ -51,12 +53,12 @@ namespace TrabalhoFinalBackEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
-            // determinar o ID do novo Agente
+            // determinar o ID do novo Filme
             int novoID = 0;
             // *****************************************
             // proteger a geração de um novo ID
             // *****************************************
-            // determinar o nº de Agentes na tabela
+            // determinar o nº de Filme na tabela
             if (db.Filmes.Count() == 0)
             {
                 novoID = 1;
@@ -65,7 +67,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             {
                 novoID = db.Filmes.Max(a => a.IdFilme) + 1;
             }
-            // atribuir o ID ao novo agente
+            // atribuir o ID ao novo Filme
             filme.IdFilme = novoID;
 
             filme.Trailer = filme.Trailer.Substring(32);
@@ -143,7 +145,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(filmes);
         }

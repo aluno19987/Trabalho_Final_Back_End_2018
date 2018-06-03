@@ -14,13 +14,13 @@
         @foreach (var item in Model)
         {
         
-            <div class="col-lg-4 col-md-4 col-sm-6" style="padding-bottom:20px;">
-                <div class="card">
+            <div class="col-lg-4 col-md-4 col-sm-6" padding-bottom:20px;">
+                <div class="card well" style="background-color:grey ;width:290px; height:480px; margin-bottom:30px">
                     <a href="/Filmes/Details/@item.IdFilme">
                         <img class="card-img-top" src="~/ImagensCartaz/@item.Cartaz" style="width:250px; height:400px" />
                     </a>
 
-                    <h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
+                    <h3 style="color:black">@Html.DisplayFor(modelItem => item.Nome)</h3>
                     <div>
                         @Html.ActionLink("Edit", "Edit", new { id = item.IdFilme }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.IdFilme })

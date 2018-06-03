@@ -59,7 +59,9 @@
             }
         </div>
     </div>
-
+    <p>
+        @Html.ActionLink("Edit Filme", "Edit", new { id = Model.IdFilme })
+    </p>
 
     <hr />
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -101,30 +103,16 @@
     <div>
         <hr />
         <h2>Reviews</h2>
-        <div style="width:90%; margin-left:5%; margin-right:5%;">
-            @foreach (var review in Model.ListaReviews.ToList())
-            {
+        @Html.Partial("_ReviewsPartial", Model.ListaReviews)
 
-                <div class="well">
-                    <h3 style="">@Html.DisplayTextFor(t => review.TituloReview)</h3>
-                    <p>@Html.DisplayFor(s => review.NStars) / 10 </p>
+        <p>
+            @Html.ActionLink("Create Review", "Create", "Reviews", new { FilmeFK = Model.IdFilme},null)
+        </p>
 
-                    <p>@Html.DisplayTextFor(c => review.Review)</p>
-                    <div>
-                        <span>@Html.DisplayFor(d => review.Data) | by </span>
-                    </div>
-                </div>
-                <br />
-
-            }
-        </div>
-        
-     
 
     </div>
     <hr />
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.IdFilme }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
 </div>

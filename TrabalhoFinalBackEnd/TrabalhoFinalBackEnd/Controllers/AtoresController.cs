@@ -11,94 +11,109 @@ using Trabalho_Final.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
-    public class ReviewsController : Controller
+    public class AtoresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Reviews/Create
-        [HttpGet]
-        public ActionResult Create(int FilmeFK)
+        // GET: Atores
+        public ActionResult Index()
         {
-            ViewBag.Filme = db.Filmes.Find(FilmeFK); 
+            return View(db.Atores.ToList());
+        }
+
+        // GET: Atores/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Atores atores = db.Atores.Find(id);
+            if (atores == null)
+            {
+                return HttpNotFound();
+            }
+            return View(atores);
+        }
+
+        // GET: Atores/Create
+        public ActionResult Create()
+        {
             return View();
         }
 
-        // POST: Reviews/Create
+        // POST: Atores/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
+        public ActionResult Create([Bind(Include = "IdAtor,Nome,DataNascimento,Imagem")] Atores atores)
         {
-            
             if (ModelState.IsValid)
             {
-                reviews.Data = DateTime.Now;
-                db.Reviews.Add(reviews);
+                db.Atores.Add(atores);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", reviews.FilmeFK);
-            return View(reviews);
+            return View(atores);
         }
 
-        // GET: Reviews/Edit/5
+        // GET: Atores/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction("Index", "Filmes", null);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.Filme = db.Reviews.Find(id).Filme.Nome;
-            Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null)
+            Atores atores = db.Atores.Find(id);
+            if (atores == null)
             {
-                return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+                return HttpNotFound();
             }
-            return View(reviews);
+            return View(atores);
         }
 
-        // POST: Reviews/Edit/5
+        // POST: Atores/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
+        public ActionResult Edit([Bind(Include = "IdAtor,Nome,DataNascimento,Imagem")] Atores atores)
         {
             if (ModelState.IsValid)
             {
-                reviews.Data = DateTime.Now;
-                db.Entry(reviews).State = EntityState.Modified;
+                db.Entry(atores).State = EntityState.Modified;
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Details","Filmes", new { id = reviews.FilmeFK});
+            return View(atores);
         }
 
-        // GET: Reviews/Delete/5
+        // GET: Atores/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction("Index", "Filmes", null);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null)
+            Atores atores = db.Atores.Find(id);
+            if (atores == null)
             {
-                return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+                return HttpNotFound();
             }
-            return View(reviews);
+            return View(atores);
         }
 
-        // POST: Reviews/Delete/5
+        // POST: Atores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Reviews reviews = db.Reviews.Find(id);
-            db.Reviews.Remove(reviews);
+            Atores atores = db.Atores.Find(id);
+            db.Atores.Remove(atores);
             db.SaveChanges();
-            return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

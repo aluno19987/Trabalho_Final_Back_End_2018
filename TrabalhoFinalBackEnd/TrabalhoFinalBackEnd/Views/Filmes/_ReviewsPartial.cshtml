@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Trabalho_Final.Models.Reviews>
+
+<div style="width:90%; margin-left:5%; margin-right:5%;">
+    @foreach (var review in Model.ToList())
+    {
+
+    <div class="well">
+        <h3 style="">@Html.DisplayTextFor(t => review.TituloReview)</h3>
+        <p>@Html.DisplayFor(s => review.NStars) / 10 </p>
+
+        <p>@Html.DisplayTextFor(c => review.Review)</p>
+        <div>
+            <span>@Html.DisplayFor(d => review.Data) | by </span>
+        </div>
+        @Html.ActionLink("Edit Review", "Edit", "Reviews", new { id = review.IdReview }, null)
+        <span> | </span>
+        @Html.ActionLink("Delete Review", "Delete", "Reviews", new { id = review.IdReview }, null)
+    </div>
+
+
+    <br />
+    }
+</div>
