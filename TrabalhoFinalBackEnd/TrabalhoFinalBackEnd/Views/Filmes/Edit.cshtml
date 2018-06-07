@@ -16,7 +16,6 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.IdFilme)
-
     <div class="form-group">
         @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -24,7 +23,6 @@
             @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.DataLancamento, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -32,7 +30,6 @@
             @Html.ValidationMessageFor(model => model.DataLancamento, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.Realizador, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -40,7 +37,6 @@
             @Html.ValidationMessageFor(model => model.Realizador, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.Companhia, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -48,7 +44,6 @@
             @Html.ValidationMessageFor(model => model.Companhia, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -56,7 +51,28 @@
             @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ListaCategorias, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @foreach (Trabalho_Final.Models.Categorias categorias in ViewBag.listaDeCategorias)
+            {
+                var selecionado = Model.ListaCategorias.Any(c => c.IdCategoria == categorias.IdCategoria);
 
+            <div>
+                @if (selecionado)
+                {
+                    <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" checked /> @categorias.Nome
+                }
+                else
+                {
+                    <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" /> @categorias.Nome
+                }
+
+
+            </div>
+            }
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Resumo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -64,7 +80,6 @@
             @Html.ValidationMessageFor(model => model.Resumo, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.Trailer, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -75,7 +90,6 @@
             @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.Cartaz, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

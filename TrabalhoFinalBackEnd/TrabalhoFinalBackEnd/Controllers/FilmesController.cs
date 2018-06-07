@@ -43,6 +43,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         // GET: Filmes/Create
         public ActionResult Create()
         {
+            ViewBag.listaDeCategorias = db.Categorias.ToList();
             return View();
         }
 
@@ -51,7 +52,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz, int[] idCategorias)
         {
             // determinar o ID do novo Filme
             int novoID = 0;
@@ -69,6 +70,11 @@ namespace TrabalhoFinalBackEnd.Controllers
             }
             // atribuir o ID ao novo Filme
             filme.IdFilme = novoID;
+
+            foreach (int categ in idCategorias)
+            {
+                filme.ListaCategorias.Add(db.Categorias.Find(idCategorias));
+            }
 
             filme.Trailer = filme.Trailer.Substring(32);
             string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
@@ -97,6 +103,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         // GET: Filmes/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.listaDeCategorias = db.Categorias.ToList();
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -116,8 +123,15 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz, int[] idCategorias)
         {
+
+            foreach (int categ in idCategorias)
+            {
+                filme.ListaCategorias.Add(db.Categorias.Find(idCategorias));
+            }
+
+
             filme.Trailer = filme.Trailer.Substring(32);
             string nomeCartaz = "img_cartaz_" + filme.IdFilme + ".jpg";
             string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeCartaz); // indica onde a imagem será guardada

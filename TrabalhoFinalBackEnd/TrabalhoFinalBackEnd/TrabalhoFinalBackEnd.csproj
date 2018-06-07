@@ -196,7 +196,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagensController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PersonagensController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
