@@ -6,15 +6,17 @@
 
 <h2>@Html.DisplayFor(model => model.Nome)</h2>
 <hr />
+<div class="navbar-right">
+</div>
 <div class="container">
 
     <div class="row">
-        <div class="col-lg-5 col-md-5 col-sm-5">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             <a href="~/ImagensCartaz/@Model.Cartaz" target="_blank">
-                <img src="~/ImagensCartaz/@Model.Cartaz" width="250px" height="400px" />
+                <img src="~/ImagensCartaz/@Model.Cartaz" style="width:250px; height:400px;" />
             </a>
         </div>
-        <div class="col-lg-7 col-md-7 col-sm-7">
+        <div class="col-lg-8 col-md-8 col-sm-8">
             <p>
                 <b>@Html.DisplayNameFor(model => model.DataLancamento)</b>:  @Html.DisplayFor(model => model.DataLancamento)
             </p>
@@ -27,21 +29,105 @@
             <p>
                 <b> @Html.DisplayNameFor(model => model.Duracao)</b>:  @Html.DisplayFor(model => model.Duracao) minutes
             </p>
+            <p>
+                <b> @Html.DisplayNameFor(model => model.ListaCategorias)</b>:
+                @foreach (var categ in Model.ListaCategorias.ToList())
+                {
+                    <span>
+                        @Html.DisplayTextFor(c => categ.Nome)
+                    </span>
+                }
+            </p>
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Resumo)</b>:  @Html.DisplayFor(model => model.Resumo) minutes
+            </p>
         </div>
     </div>
     <hr />
-        <div class="col-lg-12 col-md-12 col-sm-12" >
-            <div class="embed-responsive embed-responsive-16by9" style="max-height:500px;">
-                <iframe class="embed-responsive-item" src="//www.youtube.com/embed/@Model.Trailer?rel=0" style="width:100%; height:500px"  frameborder="0" allowfullscreen></iframe>
+    <div class="container testimonial-group" style="height:320px;overflow: scroll; overflow-y:hidden; overflow-x:auto; white-space:nowrap">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="width:500px;height:300px; margin-right:3px; display: inline-block; ">
+                <div class="embed-responsive embed-responsive-16by9 " style="width:500px;">
+                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/@Model.Trailer?rel=0" style="width:500px; height:300px" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            @foreach (var img in Model.ListaImagens.ToList())
+            {
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 " style="height:300px; width:500px; display: inline-block; float: none;">
+                    <img src="/Imagens/@img.Nome" style="height:300px; width:500px; object-fit:cover" data-toggle="modal" data-target="#myModal" />
+                </div>
+            }
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit Filme", "Edit", new { id = Model.IdFilme })
+    </p>
+
+    <hr />
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h2>Caracters</h2>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h2>Actors</h2>
+    </div>
+    <div class="container" style="height:600px; overflow-y:scroll;">
+
+        @foreach (var personagem in Model.ListaPersonagens.ToList())
+        {
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+                    <h4>@personagem.Nome</h4>
+                    <img src="/ImagensPersonagens/@personagem.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <h4>@personagem.Ator.Nome</h4>
+                    <img src="/ImagensAtores/@personagem.Ator.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="height:auto; width:max-content;">
+            <div class="modal-content">
+                <div class="modal-body" >
+                    <a id="imgNovaTab" href="" target="_blank">
+                        <img class="img-responsive" src="" style="max-height:800px; max-width:1000px;" />
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div>
+        <hr />
+        <h2>Reviews</h2>
+        @Html.Partial("_ReviewsPartial", Model.ListaReviews)
+
+        <p>
+            @Html.ActionLink("Create Review", "Create", "Reviews", new { FilmeFK = Model.IdFilme},null)
+        </p>
+
+
+    </div>
+    <hr />
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<hr />
-<div>
-    
-</div>    
-<hr />
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdFilme }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').on('show.bs.modal', function (e) {
+                var src = $(e.relatedTarget).attr('src');
+                $(".img-responsive").attr("src", src);
+                $("#imgNovaTab").attr("href", src);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Trabalho_Final.Models.Imagens>
+
+
+
+<div class="container testimonial-group" style="overflow-x:scroll;overflow-y:hidden; height: 340px; white-space:nowrap">
+    @foreach (var item in Model)
+    {
+    <div style="height:320px; width:500px; margin-right:5px; display: inline-block; float: none;">
+        <div style="height:320px; width:500px;">
+            <img src="/Imagens/@item.Nome" style="height:300px; width:500px; object-fit:cover;" />
+            <p>
+                @Html.ActionLink("Delete", "Delete", "Imagens", new { id = item.IdImg }, null)
+            </p>
+        </div>
+    </div>
+    }
+</div>
+

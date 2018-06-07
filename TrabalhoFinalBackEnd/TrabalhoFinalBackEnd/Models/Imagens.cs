@@ -13,6 +13,7 @@ namespace Trabalho_Final.Models
         [Key]
         public int IdImg { get; set; }
 
+        [Display(Name = "Image")]
         [StringLength(40)]
         public string Nome { get; set; }
 

@@ -1,45 +1,34 @@
 ﻿@model IEnumerable<Trabalho_Final.Models.Atores>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Actors";
 }
 
-<h2>Index</h2>
+<h2>Actors</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Imagem)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNascimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Imagem)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdAtor }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdAtor }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdAtor })
-        </td>
-    </tr>
-}
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            
+            @Html.ActionLink("Edit", "Edit", new { id = item.IdAtor }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdAtor })
+            
+            <div class="card  well" style="height:310px; width:240px">
+                <a href="/Atores/Details/@item.IdAtor">
+                    <img src="/ImagensAtores/@item.Imagem" style="width:200px; height:220px; object-fit:cover;" />
+                </a>
+                <h3>@item.Nome</h3>
+            </div>
+            
+        </div>
+        }
+    </div>
+</div>
 
-</table>
+

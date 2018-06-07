@@ -23,7 +23,8 @@ namespace Trabalho_Final.Models
         [Required(ErrorMessage = "The {0} is required!")]
         [Display(Name = "Number of Stars")]
         public int NStars { get; set; }
-        
+
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Data { get; set; }
 

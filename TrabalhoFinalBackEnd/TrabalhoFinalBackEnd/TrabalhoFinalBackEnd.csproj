@@ -271,11 +271,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Atores\Create.cshtml" />
-    <Content Include="Views\Atores\Delete.cshtml" />
-    <Content Include="Views\Atores\Details.cshtml" />
-    <Content Include="Views\Atores\Edit.cshtml" />
-    <Content Include="Views\Atores\Index.cshtml" />
     <Content Include="Views\Categorias\Create.cshtml" />
     <Content Include="Views\Categorias\Delete.cshtml" />
     <Content Include="Views\Categorias\Details.cshtml" />
@@ -288,19 +283,17 @@
     <Content Include="Views\Filmes\Index.cshtml" />
     <Content Include="Views\Imagens\Create.cshtml" />
     <Content Include="Views\Imagens\Delete.cshtml" />
-    <Content Include="Views\Imagens\Details.cshtml" />
-    <Content Include="Views\Imagens\Edit.cshtml" />
-    <Content Include="Views\Imagens\Index.cshtml" />
-    <Content Include="Views\Personagens\Create.cshtml" />
-    <Content Include="Views\Personagens\Delete.cshtml" />
-    <Content Include="Views\Personagens\Details.cshtml" />
-    <Content Include="Views\Personagens\Edit.cshtml" />
-    <Content Include="Views\Personagens\Index.cshtml" />
-    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Categorias\_CategoriasPartial.cshtml" />
+    <Content Include="Views\Filmes\_ReviewsPartial.cshtml" />
     <Content Include="Views\Reviews\Delete.cshtml" />
-    <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
-    <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Filmes\_ImagensPartial.cshtml" />
+    <Content Include="Views\Atores\Create.cshtml" />
+    <Content Include="Views\Atores\Delete.cshtml" />
+    <Content Include="Views\Atores\Details.cshtml" />
+    <Content Include="Views\Atores\Edit.cshtml" />
+    <Content Include="Views\Atores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

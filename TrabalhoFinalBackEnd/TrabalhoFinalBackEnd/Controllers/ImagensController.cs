@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using TrabalhoFinalBackEnd.Models;
 using Trabalho_Final.Models;
+using System.IO;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
@@ -15,32 +16,11 @@ namespace TrabalhoFinalBackEnd.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Imagens
-        public ActionResult Index()
-        {
-            var imagens = db.Imagens.Include(i => i.Filme);
-            return View(imagens.ToList());
-        }
-
-        // GET: Imagens/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Imagens imagens = db.Imagens.Find(id);
-            if (imagens == null)
-            {
-                return HttpNotFound();
-            }
-            return View(imagens);
-        }
-
+        
         // GET: Imagens/Create
-        public ActionResult Create()
+        public ActionResult Create(int FilmeFK)
         {
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome");
+            ViewBag.filme = db.Filmes.Find(FilmeFK);
             return View();
         }
 
@@ -49,65 +29,61 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdImg,Nome,FilmeFK")] Imagens imagens)
+        public ActionResult Create([Bind(Include = "IdImg,Nome,FilmeFK")] Imagens imagens, HttpPostedFileBase fileUpload)
         {
+            // determinar o ID da nova imagem
+            int novoID = 0;
+            // *****************************************
+            // proteger a geração de um novo ID
+            // *****************************************
+            // determinar o nº de Filme na tabela
+            if (db.Imagens.Count() == 0)
+            {
+                novoID = 1;
+            }
+            else
+            {
+                novoID = db.Imagens.Max(a => a.IdImg) + 1;
+            }
+            // atribuir o ID ao novo Filme
+            imagens.IdImg = novoID;
+            
+            string nomeFotografia = "img_" + imagens.IdImg + ".jpg";
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/imagens/"), nomeFotografia); // indica onde a imagem será guardada
+
+            // guardar o nome da imagem na BD
+            imagens.Nome = nomeFotografia;
+            if (fileUpload == null)
+            {
+                // não há imagem...
+                ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
+                return RedirectToAction("Create",new { FilmeFk = imagens.FilmeFK}); // reenvia os dados do 'Agente' para a View
+            }
+            
             if (ModelState.IsValid)
             {
                 db.Imagens.Add(imagens);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                fileUpload.SaveAs(caminhoParaFotografia);
+                return RedirectToAction("Edit", "Filmes", new { id = imagens.FilmeFK });
             }
 
             ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", imagens.FilmeFK);
-            return View(imagens);
+            ModelState.AddModelError("", "Image not valid");
+            return RedirectToAction("Edit", "Filmes", new { id = imagens.FilmeFK });
         }
 
-        // GET: Imagens/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Imagens imagens = db.Imagens.Find(id);
-            if (imagens == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", imagens.FilmeFK);
-            return View(imagens);
-        }
-
-        // POST: Imagens/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdImg,Nome,FilmeFK")] Imagens imagens)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(imagens).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", imagens.FilmeFK);
-            return View(imagens);
-        }
-
+        
         // GET: Imagens/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Filmes");
             }
             Imagens imagens = db.Imagens.Find(id);
-            if (imagens == null)
-            {
-                return HttpNotFound();
-            }
-            return View(imagens);
+            ViewBag.filme = imagens.Filme;
+            return RedirectToAction("Edit", "Filmes", new { id = imagens.FilmeFK });
         }
 
         // POST: Imagens/Delete/5

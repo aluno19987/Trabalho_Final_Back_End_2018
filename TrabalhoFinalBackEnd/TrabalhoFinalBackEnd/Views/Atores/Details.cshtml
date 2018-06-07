@@ -9,33 +9,24 @@
 <div>
     <h4>Atores</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="/ImagensAtores/@Model.Imagem" style="max-height:550px; max-width:350px"/>
+            </div>
+            <div class="col-lg-8">
+                <p>
+                    <b>@Html.DisplayNameFor(model => model.Nome)</b>: @Html.DisplayFor(model => model.Nome)
+                </p>
+                <p>
+                    <b>@Html.DisplayNameFor(model => model.DataNascimento)</b>: @Html.DisplayFor(model => model.DataNascimento)
+                </p>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Imagem)
-        </dd>
-
-    </dl>
 </div>
+<hr />
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IdAtor }) |
     @Html.ActionLink("Back to List", "Index")

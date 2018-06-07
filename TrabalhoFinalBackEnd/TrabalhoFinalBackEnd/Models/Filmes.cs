@@ -51,6 +51,11 @@ namespace Trabalho_Final.Models
         public int Duracao { get; set; }
 
         [Required(ErrorMessage = "The {0} is required!")]
+        [Display(Name = "Resume")]
+        public string Resumo { get; set; }
+
+
+        [Required(ErrorMessage = "The {0} is required!")]
         public string Trailer { get; set; }
         
         [Display(Name = "Banner")]
@@ -58,6 +63,7 @@ namespace Trabalho_Final.Models
 
         public virtual ICollection<Reviews> ListaReviews { get; set; }
 
+        [Display(Name = "Categories")]
         public virtual ICollection<Categorias> ListaCategorias { get; set; }
 
         public virtual ICollection<Imagens> ListaImagens { get; set; }

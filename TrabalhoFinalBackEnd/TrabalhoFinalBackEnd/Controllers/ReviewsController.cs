@@ -11,37 +11,15 @@ using Trabalho_Final.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
-    [RoutePrefix("Reviews")]
     public class ReviewsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Reviews
-        public ActionResult Index()
-        {
-            var reviews = db.Reviews.Include(r => r.Filme);
-            return View(reviews.ToList());
-        }
-
-        // GET: Reviews/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null)
-            {
-                return HttpNotFound();
-            }
-            return View(reviews);
-        }
-
         // GET: Reviews/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult Create(int FilmeFK)
         {
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome");
+            ViewBag.Filme = db.Filmes.Find(FilmeFK); 
             return View();
         }
 
@@ -50,10 +28,12 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdReview,TituloReview,Review,NStars,Data,FilmeFK")] Reviews reviews)
+        public ActionResult Create([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
         {
+            
             if (ModelState.IsValid)
             {
+                reviews.Data = DateTime.Now;
                 db.Reviews.Add(reviews);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -68,14 +48,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Filmes", null);
             }
+            ViewBag.Filme = db.Reviews.Find(id).Filme.Nome;
             Reviews reviews = db.Reviews.Find(id);
             if (reviews == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
             }
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", reviews.FilmeFK);
             return View(reviews);
         }
 
@@ -84,16 +64,15 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdReview,TituloReview,Review,NStars,Data,FilmeFK")] Reviews reviews)
+        public ActionResult Edit([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
         {
             if (ModelState.IsValid)
             {
+                reviews.Data = DateTime.Now;
                 db.Entry(reviews).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", reviews.FilmeFK);
-            return View(reviews);
+            return RedirectToAction("Details","Filmes", new { id = reviews.FilmeFK});
         }
 
         // GET: Reviews/Delete/5
@@ -101,12 +80,12 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Filmes", null);
             }
             Reviews reviews = db.Reviews.Find(id);
             if (reviews == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
             }
             return View(reviews);
         }
@@ -119,7 +98,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             Reviews reviews = db.Reviews.Find(id);
             db.Reviews.Remove(reviews);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
         }
 
         protected override void Dispose(bool disposing)

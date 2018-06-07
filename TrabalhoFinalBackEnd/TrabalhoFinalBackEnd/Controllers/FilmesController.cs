@@ -33,10 +33,12 @@ namespace TrabalhoFinalBackEnd.Controllers
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(filmes);
         }
+
+
 
         // GET: Filmes/Create
         public ActionResult Create()
@@ -49,14 +51,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
-            // determinar o ID do novo Agente
+            // determinar o ID do novo Filme
             int novoID = 0;
             // *****************************************
             // proteger a geração de um novo ID
             // *****************************************
-            // determinar o nº de Agentes na tabela
+            // determinar o nº de Filme na tabela
             if (db.Filmes.Count() == 0)
             {
                 novoID = 1;
@@ -65,7 +67,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             {
                 novoID = db.Filmes.Max(a => a.IdFilme) + 1;
             }
-            // atribuir o ID ao novo agente
+            // atribuir o ID ao novo Filme
             filme.IdFilme = novoID;
 
             filme.Trailer = filme.Trailer.Substring(32);
@@ -114,17 +116,20 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz)
         {
             filme.Trailer = filme.Trailer.Substring(32);
-            string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
-            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeFotografia); // indica onde a imagem será guardada
-            
+            string nomeCartaz = "img_cartaz_" + filme.IdFilme + ".jpg";
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeCartaz); // indica onde a imagem será guardada
+            filme.Cartaz = nomeCartaz;
+
             if (ModelState.IsValid)
             {
                 db.Entry(filme).State = EntityState.Modified;
                 db.SaveChanges();
-                fileUploadCartaz.SaveAs(caminhoParaFotografia);
+                if (fileUploadCartaz != null) { 
+                    fileUploadCartaz.SaveAs(caminhoParaFotografia);
+                }
                 return RedirectToAction("Index");
             }
             return View(filme);
@@ -140,7 +145,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index");
             }
             return View(filmes);
         }
