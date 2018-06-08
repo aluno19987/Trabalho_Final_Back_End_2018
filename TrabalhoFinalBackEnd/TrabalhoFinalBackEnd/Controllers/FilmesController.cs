@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using TrabalhoFinalBackEnd.Models;
 using Trabalho_Final.Models;
 using System.IO;
+using System.Collections;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
@@ -125,27 +126,77 @@ namespace TrabalhoFinalBackEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz, int[] idCategorias)
         {
-
-            foreach (int categ in idCategorias)
-            {
-                filme.ListaCategorias.Add(db.Categorias.Find(idCategorias));
-            }
-
-
-            filme.Trailer = filme.Trailer.Substring(32);
+            var filmeBU = db.Filmes.Include(f => f.ListaCategorias).Where(f => f.IdFilme == filme.IdFilme).SingleOrDefault();
             string nomeCartaz = "img_cartaz_" + filme.IdFilme + ".jpg";
             string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeCartaz); // indica onde a imagem será guardada
-            filme.Cartaz = nomeCartaz;
-
+            filme.Trailer = filme.Trailer.Substring(32);
             if (ModelState.IsValid)
             {
-                db.Entry(filme).State = EntityState.Modified;
+                filmeBU.Trailer = filme.Trailer;
+                filmeBU.Cartaz = nomeCartaz;
+                filmeBU.Nome = filme.Nome;
+                filmeBU.Realizador = filme.Realizador;
+                filmeBU.Companhia = filme.Companhia;
+                filmeBU.Resumo = filme.Resumo;
+                filmeBU.Duracao = filme.Duracao;
+                filmeBU.DataLancamento = filme.DataLancamento;
+
+            }
+            else
+            {
+                return View(filme);
+            }
+
+            var categorias = db.Categorias.ToList();
+
+            if(idCategorias != null)
+            {
+                foreach( var cat in categorias)
+                {
+                    if (idCategorias.Contains(cat.IdCategoria))
+                    {
+                        if (!filmeBU.ListaCategorias.Contains(cat))
+                        {
+                            filmeBU.ListaCategorias.Add(cat);
+                        }
+                    }
+                    else
+                    {
+                        filmeBU.ListaCategorias.Remove(cat);                     
+                    }
+                }
+            }
+            else
+            {
+                foreach (var cat in categorias)
+                {
+                    if (filmeBU.ListaCategorias.Contains(cat))
+                    {
+                        filmeBU.ListaCategorias.Remove(cat);
+                    }
+                }
+            }
+
+            //tentar fazer update
+            if (TryUpdateModel(filmeBU, "", new string[] {nameof(filmeBU.Cartaz), nameof(filmeBU.Duracao),nameof(filmeBU.DataLancamento), nameof(filmeBU.ListaCategorias),nameof(filmeBU.Realizador),nameof(filmeBU.Resumo) }))
+            {
+                // guardar as alterações
                 db.SaveChanges();
-                if (fileUploadCartaz != null) { 
+                
+                //se existir imagem guarda-la na base de dados
+                if (fileUploadCartaz != null)
+                {
                     fileUploadCartaz.SaveAs(caminhoParaFotografia);
                 }
+
+                // devolver controlo à View
                 return RedirectToAction("Index");
             }
+
+            // se cheguei aqui, é pq alguma coisa correu mal
+            ModelState.AddModelError("", "Something went wrong...");
+            
+            // visualizar View...
             return View(filme);
         }
 
