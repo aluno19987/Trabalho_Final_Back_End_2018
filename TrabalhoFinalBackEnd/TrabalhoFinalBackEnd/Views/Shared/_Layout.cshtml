@@ -29,9 +29,13 @@
             </div>
         </div>
     </div>
-    <div class="navbar-left navbar-default" style="background-color:antiquewhite">
 
+    <div class="navbar-left navbar-default" style="background-color:antiquewhite">
+            @{
+                Html.RenderAction("PartialIndex", "Categorias", null);
+            }
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

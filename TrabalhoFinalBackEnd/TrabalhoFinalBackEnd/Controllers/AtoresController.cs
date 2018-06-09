@@ -36,15 +36,15 @@ namespace TrabalhoFinalBackEnd.Controllers
             return View(atores);
         }
 
-        // GET: Atores/Create
+        //GET: Atores/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Atores/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //// POST: Atores/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdAtor,Nome,DataNascimento,Imagem")] Atores atores)

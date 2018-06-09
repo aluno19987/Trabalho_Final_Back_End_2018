@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Trabalho_Final.Models.Categorias>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h3>
+    Categorias
+</h3>
+
+@foreach (var item in Model)
+{
+<p>
+    <a href="@Url.Action("Index","Filmes", new { idCategoria = item.IdCategoria})">@Html.DisplayFor(modelItem => item.Nome)</a>
+     | @Html.ActionLink("Delete", "Delete", new { id = item.IdCategoria })
+</p>
+}
+
+

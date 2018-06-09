@@ -19,9 +19,22 @@ namespace TrabalhoFinalBackEnd.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Filmes
-        public ActionResult Index()
+        public ActionResult Index( int? idCategoria)
         {
-            return View(db.Filmes.ToList());
+            var model = db.Filmes.ToList();
+            if (idCategoria != null)
+            {
+                var Categoria = db.Categorias.Find(idCategoria);
+                var filmes = db.Filmes.ToList();
+                foreach (var filme in filmes)
+                {
+                    if (!Categoria.ListaFilmes.Contains(filme))
+                    {
+                        model.Remove(filme);
+                    }
+                }
+            }
+            return View(model);
         }
 
         // GET: Filmes/Details/5
@@ -72,14 +85,20 @@ namespace TrabalhoFinalBackEnd.Controllers
             // atribuir o ID ao novo Filme
             filme.IdFilme = novoID;
 
-            foreach (int categ in idCategorias)
-            {
-                filme.ListaCategorias.Add(db.Categorias.Find(idCategorias));
+            if (idCategorias != null) { 
+                var Categorias = db.Categorias.ToList();
+            
+                foreach (var cat in Categorias)
+                {
+                    if (idCategorias.Contains(cat.IdCategoria))
+                    {
+                        filme.ListaCategorias.Add(cat);
+                    }
+                }
             }
-
             filme.Trailer = filme.Trailer.Substring(32);
             string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
-            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/imagens/"), nomeFotografia); // indica onde a imagem será guardada
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeFotografia); // indica onde a imagem será guardada
             
             // guardar o nome da imagem na BD
             filme.Cartaz = nomeFotografia;
@@ -110,12 +129,14 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
-            filmes.Trailer = "https://www.youtube.com/watch?v=" + filmes.Trailer;
 
             if (filmes == null)
             {
+                ModelState.AddModelError("", "Something went wrong...");
                 return RedirectToAction("Index");
             }
+
+            filmes.Trailer = "https://www.youtube.com/watch?v=" + filmes.Trailer;
             return View(filmes);
         }
 
@@ -130,6 +151,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             string nomeCartaz = "img_cartaz_" + filme.IdFilme + ".jpg";
             string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeCartaz); // indica onde a imagem será guardada
             filme.Trailer = filme.Trailer.Substring(32);
+
             if (ModelState.IsValid)
             {
                 filmeBU.Trailer = filme.Trailer;
@@ -195,7 +217,7 @@ namespace TrabalhoFinalBackEnd.Controllers
 
             // se cheguei aqui, é pq alguma coisa correu mal
             ModelState.AddModelError("", "Something went wrong...");
-            
+
             // visualizar View...
             return View(filme);
         }
@@ -221,6 +243,8 @@ namespace TrabalhoFinalBackEnd.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Filmes filmes = db.Filmes.Find(id);
+
+            
             db.Filmes.Remove(filmes);
             db.SaveChanges();
             return RedirectToAction("Index");
