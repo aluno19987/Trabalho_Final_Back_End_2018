@@ -59,10 +59,12 @@
             }
         </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit Filme", "Edit", new { id = Model.IdFilme })
-    </p>
-
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            @Html.ActionLink("Edit Filme", "Edit", new { id = Model.IdFilme })
+        </p>
+    }
     <hr />
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <h2>Caracters</h2>
@@ -91,7 +93,7 @@
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog" style="height:auto; width:max-content;">
             <div class="modal-content">
-                <div class="modal-body" >
+                <div class="modal-body">
                     <a id="imgNovaTab" href="" target="_blank">
                         <img class="img-responsive" src="" style="max-height:800px; max-width:1000px;" />
                     </a>
@@ -106,7 +108,7 @@
         @Html.Partial("_ReviewsPartial", Model.ListaReviews)
 
         <p>
-            @Html.ActionLink("Create Review", "Create", "Reviews", new { FilmeFK = Model.IdFilme},null)
+            @Html.ActionLink("Create Review", "Create", "Reviews", new { FilmeFK = Model.IdFilme }, null)
         </p>
 
 

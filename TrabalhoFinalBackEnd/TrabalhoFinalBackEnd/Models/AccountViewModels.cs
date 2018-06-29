@@ -79,6 +79,10 @@ namespace TrabalhoFinalBackEnd.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //**********************************************************
+        // atributo específicos do utilizador
+        public Utilizadores Utilizador { get; set; }
     }
 
     public class ResetPasswordViewModel

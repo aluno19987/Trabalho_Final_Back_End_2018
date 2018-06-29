@@ -6,9 +6,13 @@
 
 <h2>Movies</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
 <div class="container">
     <div class="row">
         @foreach (var item in Model)
@@ -22,8 +26,12 @@
 
                     <h3 style="color:black">@Html.DisplayFor(modelItem => item.Nome)</h3>
                     <div>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.IdFilme }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.IdFilme })
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdFilme }) 
+                            <span>|</span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdFilme })
+                        }
                     </div>
                 </div>
             </div>

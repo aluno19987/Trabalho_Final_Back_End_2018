@@ -155,19 +155,46 @@ namespace TrabalhoFinalBackEnd.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    if (result.Succeeded)
+                    {
+                        try
+                        {
+                            // registar os dados específicos do utilizador
+                            Utilizadores utilizador = new Utilizadores();
+                            utilizador = model.Utilizador;
+                            utilizador.UserName = user.UserName;
+                            ApplicationDbContext db = new ApplicationDbContext();
+                            db.Utilizadores.Add(utilizador);
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            // destruir o user
+                            /// - gerar mensagem para o ModelError
+                            /// - registar na base de dados que ocorreu um erro
+                            ///     - data
+                            ///     - hora
+                            ///     - nome do controller
+                            ///     - nome do método
+                            ///     - texto com a descrição do erro (ex.message)
+                            ///     - outras informações q se considerem necessárias
+                            /// - eventualmente, enviar email para o Administrador do Sistema
+                        }
 
-                    return RedirectToAction("Index", "Home");
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
-            }
 
+            }
             // If we got this far, something failed, redisplay form
             return View(model);
         }

@@ -204,6 +204,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Atores.cs" />
     <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\Utilizadores.cs" />
     <Compile Include="Models\Filmes.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagens.cs" />
@@ -292,6 +293,11 @@
     <Content Include="Views\Atores\Edit.cshtml" />
     <Content Include="Views\Atores\Index.cshtml" />
     <Content Include="Views\Shared\_CategoriasPartial.cshtml" />
+    <Content Include="Views\Utilizadores\Create.cshtml" />
+    <Content Include="Views\Utilizadores\Delete.cshtml" />
+    <Content Include="Views\Utilizadores\Details.cshtml" />
+    <Content Include="Views\Utilizadores\Edit.cshtml" />
+    <Content Include="Views\Utilizadores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

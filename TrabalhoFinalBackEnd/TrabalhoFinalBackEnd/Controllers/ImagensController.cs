@@ -16,8 +16,9 @@ namespace TrabalhoFinalBackEnd.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        
+
         // GET: Imagens/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(int FilmeFK)
         {
             ViewBag.filme = db.Filmes.Find(FilmeFK);
@@ -73,8 +74,9 @@ namespace TrabalhoFinalBackEnd.Controllers
             return RedirectToAction("Edit", "Filmes", new { id = imagens.FilmeFK });
         }
 
-        
+
         // GET: Imagens/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

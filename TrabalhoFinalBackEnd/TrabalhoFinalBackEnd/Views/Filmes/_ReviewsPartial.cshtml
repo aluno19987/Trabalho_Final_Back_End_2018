@@ -10,14 +10,15 @@
 
         <p>@Html.DisplayTextFor(c => review.Review)</p>
         <div>
-            <span>@Html.DisplayFor(d => review.Data) | by </span>
+            <span>@Html.DisplayFor(d => review.Data) | by @Html.DisplayFor(d => review.Utilizador.UserName)</span>
         </div>
-        @Html.ActionLink("Edit Review", "Edit", "Reviews", new { id = review.IdReview }, null)
-        <span> | </span>
-        @Html.ActionLink("Delete Review", "Delete", "Reviews", new { id = review.IdReview }, null)
+        @if (User.Identity.Name==review.Utilizador.UserName || User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Edit Review", "Edit", "Reviews", new { id = review.IdReview }, null)
+            <span> | </span>
+            @Html.ActionLink("Delete Review", "Delete", "Reviews", new { id = review.IdReview }, null)
+        }
     </div>
-
-
     <br />
     }
 </div>

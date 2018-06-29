@@ -55,6 +55,7 @@ namespace TrabalhoFinalBackEnd.Controllers
 
 
         // GET: Filmes/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.listaDeCategorias = db.Categorias.ToList();
@@ -121,6 +122,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         }
 
         // GET: Filmes/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             ViewBag.listaDeCategorias = db.Categorias.ToList();
@@ -223,6 +225,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         }
 
         // GET: Filmes/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

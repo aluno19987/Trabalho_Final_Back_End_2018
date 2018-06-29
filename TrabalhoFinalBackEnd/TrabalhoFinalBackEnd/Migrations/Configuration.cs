@@ -6,6 +6,7 @@ namespace TrabalhoFinalBackEnd.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Trabalho_Final.Models;
+    using TrabalhoFinalBackEnd.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TrabalhoFinalBackEnd.Models.ApplicationDbContext>
     {
@@ -31,7 +32,7 @@ namespace TrabalhoFinalBackEnd.Migrations
 
             //*********************************************************************
             // adiciona Filmes
-            var filmes = new List<Filmes> {
+           var filmes = new List<Filmes> {
                  new Filmes {IdFilme=1, Nome="Avengers: Infinity War", DataLancamento=new DateTime(2018,4,25), Realizador="Anthony Russo",Companhia="Marvel", Duracao=149,Resumo="The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",  Trailer="6ZfuNTqbHE8", Cartaz="img_cartaz_1.jpg"},
                  new Filmes {IdFilme=2, Nome="Deadpool", DataLancamento=new DateTime(2016,2,11), Realizador="Tim Miller",Companhia="Marvel", Duracao=108,Resumo="A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment that leaves him with accelerated healing powers and a quest for revenge." , Trailer="Xithigfg7dA", Cartaz="img_cartaz_2.jpg"},
                  new Filmes {IdFilme=3, Nome="The Shape of Water", DataLancamento=new DateTime(2018,2,1), Realizador="Guillermo del Toro",Companhia="Fox Searchlight Pictures", Duracao=123,Resumo="A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment that leaves him with accelerated healing powers and a quest for revenge." , Trailer="XFYWazblaUA", Cartaz="img_cartaz_3.jpg"},
@@ -40,16 +41,28 @@ namespace TrabalhoFinalBackEnd.Migrations
             };
             filmes.ForEach(ff => context.Filmes.AddOrUpdate(f => f.IdFilme, ff));
             context.SaveChanges();
-            
+
+            //*********************************************************************
+            // adiciona Utilizadores
+            var utilizadores = new List<Utilizadores> {
+                    new Utilizadores {ID=1,UserName="util1@mail.pt"},
+                    new Utilizadores {ID=2,UserName="util2@mail.pt"},
+                    new Utilizadores {ID=3,UserName="util3@mail.pt"},
+                    new Utilizadores {ID=4,UserName="util4@mail.pt"},
+                    new Utilizadores {ID=5,UserName="util5@mail.pt"},
+                };
+            utilizadores.ForEach(oo => context.Utilizadores.AddOrUpdate(o => o.ID, oo));
+            context.SaveChanges();
+
             //*********************************************************************
             // adiciona Filmes
             var reviews = new List<Reviews> {
                 new Reviews {IdReview=1, TituloReview="The amount of people that don't understand the movie is astonishing",
                    Review ="All the reviews that say this movie has no plot are either trolls, idiots, or didn't are to take the time to watch previous marvel movies. Every single one of those ratings and reviews should be taken down and not added to the rating for Infinity War because of their fundamental lack of understanding. It's like coming in and watching the last 2 minutes of an hour long drama show and saying this episode sucks because it has no plot. It's utterly ridiculous! \n There have been 31 marvel movies leading up to this point. All 31 has have some plot that leads to infinity war. Infinity War IS the end game movie. There is nothing left to explain, nothing left to discuss, it is all-out fight for control of the most powerful items in existence, the infinity stones.There have been 31 movies to explain in someway the power of these stones and / or the heroes that come together to fight Thanos in this movie.It's like a long game of chess where Thanos finally makes his move, and it's a huge one. \nSo I beg of any of you who reads this.Don't listen to anyone who says this movie has no plot, has no reason and is only fighting. They aren't worth listening to, Infinity Wars has roughly 60 hours of plot from 31 precious movies leading up to this monumental fight for life or death, and the movie is done to near perfection.The movie is glorious, the CGI is fantastic, the battles are awe - inspiring, and Thanos is made worth of your fear from the very beginning.He is truly the Mad Titan that captures your heart and crushes it right in front of your eyes.Anyone who doesn't think this clearly didn't see the same movie.",
-                    NStars =10, Data=new DateTime(2018,4,27), FilmeFK=1},
-                new Reviews {IdReview=2, TituloReview="Too many characters, prolonged action scenes become monotonous",
+                    NStars =10, Data=new DateTime(2018,4,27), FilmeFK=1, UtilizadorFK=1},
+                new Reviews {IdReview=2, TituloReview="Too many characters, prolonged action scenes become monotonous",NStars =2,
                     Review ="The plot follows Thanos around on his quest to collect 5 stones, achieve control of all dimensions and eliminate half of humanity in an attempt to save planets from population induced ecosystem destruction/annihilation. Each stone quest involves 10 minutes or so of the same CGI fighting. Why 5 stones? Why not, they've got time to fill. Lots and lots of time. Many of the characters are likeable esp the Guardians of the Galaxy, the Hulk and Tony Stark BUT, there are just too many groups involved with too much repetition. The plot is mildly interesting daring to touch on overpopulation crisis. Thanos makes a good point. Though in true Hollywood style, he goes about it the wrong way. He should have sterilized half the planet, not dissolve them.",
-                    NStars =2, Data=new DateTime(2018,5,2), FilmeFK=1},
+                    Data=new DateTime(2018,5,2), FilmeFK=1, UtilizadorFK=2},
                 new Reviews {IdReview=3, TituloReview="All in",
                     Review ="MAJOR SPOILERS!! DO NOT READ IF YOU HAVEN'T SEEN THE FILM! My headline is the easy way to describe this movie. It is grand, majestic and spectacular. Just like Thanos towering everyone else with his physique this movie also stands above everything else, at least most of it. Because wow, this movie is really something to behold. Marvel went all in with everything here, the cgi is phenomenal, the acting is great, the story is well told, the pacing is near perfect. I have seen this movie twice in IMAX 3D and once in 4DX now, and i have never seen a movie with better image quality than this one, never." +
                     "Ever since the MCU started with Iron Man i have seen every film released, most of them are good, some are outright great, a few are mediocre and very few are bad. But for the most part it has been a hell of a ride, and I've eagerly been awaiting this movie for quite some time, we all knew that it would come down to this, but were you prepared for what would be the outcome? Not many were, though many of us knew several avengers and other major characters would die in this film, i did not expect it to be this many. \n \n This movie truly didn't waste any time getting down to business, as before ten minutes had passed, Heimdall and Loki are killed, and we see the Titan kick the crap out of Hulk, this set the tone for the entire movie right of the bat, and was IMO a smart move, now we knew for sure what a badass Thanos is, and this was before he got all the stones. " +
@@ -60,92 +73,92 @@ namespace TrabalhoFinalBackEnd.Migrations
                     "But MCU has killed characters before, which has been brought back to life, so i guess that will be the case here as well, as the next movie most likely will deal with time travel and fight Thanos in the future and the past.Dr.Strange gave up the time stone because of the 14.000.605 outcomes that he saw, only one lead to victory for the avengers, and giving up the stone was the beginning of the victory path.So even though this movie ended on a cliffhanger, it left enough hints that will be talked about for a whole year, and it will build the biggest hype in the history of cinema.So at the end of the day, this movie just delivers on so many levels, and it will make way for the rise of many new characters to enter the MCU, and finally take down Thanos and undo some of the damage he has done. " +
                     "It's quite amazing that this movie actually managed to live up to the hype, that should not even be possible when you think about it, but it did. The movie is absolutely amazing. " +
                     "I can't wait for Avengers 4.",
-                    NStars =9, Data=new DateTime(2018,4,25), FilmeFK=1},
+                    NStars =9, Data=new DateTime(2018,4,25), FilmeFK=1, UtilizadorFK=3},
                 new Reviews {IdReview=4, TituloReview="Near-flawless action/space epic",Review="SPOILER: 'Avengers: Infinity War' is the third Avengers film and the 19th Marvel Cinematic Universe film overall, serving as a culmination of the last 10 years. Will not a full-stop (Avengers 4 comes out next year), it does a great job of bringing the much-teased infinity stones/Thanos storyline together. Lots of knowledge of the previous MCU films is assumed, especially the two most recent films which lead directly in to this film - 'Thor: Ragnarok' and 'Black Panther'. It might make some sense if you haven't seen the others, but probably not too much. " +
                 "The stakes are certainly high, with a number of deaths of key characters throughout (no spoilers) and the opening scene literally taking no prisoners. The vital part of this film is the villain, Thanos (Brolin) who - despite being large, ugly & purple - gets enough backstory and shows adequate ethos to almost empathise with his reasoning for wanting to destroy half the universe(via the infinity stones).While there's some deaths and plenty of tension/darkness in parts, there's still lots of laughs, mostly thanks to Thor(Hemsworth), Starlord(Pratt), Rocket(Cooper) and Drax(Bautista). " +
                 "The CGI is fantastic the entire film, with plenty of scenes in space and on new planets, which is always great to see - as is Iron Man (Downey Jr.) 's inevitable new suit. The way the team-ups are handled is done really well, with Dr Strange (Cumberbatch), the Guardians of the Galaxy, Spider-Man (Holland), Black Panther (Boseman) and the Avengers all split up, so there's always different scenes moving things along at a good pace.The third act battle is not predictable and the ending is hugely shocking - certainly no cop-out. ",
-                    NStars =9, Data=new DateTime(2018,4,25), FilmeFK=1},
+                    NStars =9, Data=new DateTime(2018,4,25), FilmeFK=1, UtilizadorFK=4},
                 new Reviews {IdReview=5, TituloReview="ABOVE MY EXPECTATION.",Review="Just WOW , The Russo nailed it, hand down from me they did it again. Part by part is interesting to watch , some of scene make me shock some scene make me wanna punch people so bad. Thanos is the best villain I've ever seen. He not just normal villain to kill bunch of people because he love but his motivation so clear why he wanna do that and most people know he is collecting all the infinity stones. " +
                 "One of the best part of it the team up Guardian & Avengers just amazing, full of humor cannot stop laughing watching their scene together. For 1st time my brain cannot process what going to happen in Avengers 4 really hype about it. " +
                 "Really worth watching it , if u non Marvel fans or superheroes fan this movie is worth to watch , really enjoy it.Of course every good movie always have some issue with it but just MINOR issue can close eye and let it go. Going to watch it again soon . Love from Malaysia.",
-                    NStars =10, Data=new DateTime(2018,4,26), FilmeFK=1},
+                    NStars =10, Data=new DateTime(2018,4,26), FilmeFK=1, UtilizadorFK=5},
                 new Reviews {IdReview=6, TituloReview="This is what it looks like when filmmakers take risks",
                     Review ="Deadpool is a triumph of artistic vision over studio interference. Little credit should be given to 20th Century Fox, as they had zero faith in the success of a Deadpool movie. To put things into perspective, Ryan Reynolds fought for this film back in 2004 when Blade: Trinity was released. Reynolds and co. went to shoot test footage that was then leaked online by Reynolds because Fox had no intentions to release it to the public. Finally, after years and years of BEGGING to the studio and the overwhelming positive responses of the test footage from the public, Fox didn't even tell Reynolds and co. that the film was greenlit. They had to find out online like the rest of us plebeians. If that sounds bad, Fox even cut their budget by $7 million AT THE LAST MINUTE, which caused the writers to scratch some action sequences that I'm sure would've been great to see. " +
                     "Deadpool now has the biggest opening weekend in the month of February (surpassing Fifty Shades of Grey), the biggest opening weekend for 20th Century Fox(surpassing all the X - Men films), and the biggest opening weekend for an R rated film EVER(surpassing The Matrix: Reloaded).With all that being said, Deadpool is a hilariously entertaining film that works mainly because of Reynolds himself.His comedic skills pay off gloriously as the titular character, who gives so many quips in one instance that some jokes will be missed.Of course, credit should be given to the writers too(AKA: The Real Heroes Here), and it's impressive that this is Tim Miller's directorial debut.The action sequences and pacing are so good that you'd think this came from a veteran director. " +
                     " From the ingenious opening credits to the subversive ending, Deadpool constantly upends clichés and tropes you're used to seeing in superhero flicks in the past few years. What's great here is the filmmakers had something weird and perverse and just went with it.Jokes about pedophilia, pegging, and sex run rampant, but it's never really dark, despite the mature subject matter. On top of that, it's also very refreshing to see a pansexual superhero in such a big studio film.It's unheard of these days. Fox and other studios, learn from this success. It's not the fact that a hard R - rated film can do well, it's that Deadpool also happens to be very good, most likely because you, Fox, actually gave the filmmakers the creative freedom to do whatever the hell they wanted.",
-                    NStars =8, Data=new DateTime(2016,2,15), FilmeFK=2},
+                    NStars =8, Data=new DateTime(2016,2,15), FilmeFK=2, UtilizadorFK=1},
                 new Reviews {IdReview=6, TituloReview="Best Movie I Have Seen In A Long Time",
                     Review ="Firstly I would like to state that it is completely hilarious reading reviews with One Star because the movie had \"Foul Language\" and \"Sex Scenes\" or that someone had no idea that the movie was inappropriate for their 9 year old kid. Dead Pool is rated R and with 3 minutes of research you could have determined if this movie was for you or not With that being said I will not delve into the plot but the acting and writing were fantastic. Ryan Reynolds nailed this role. If you are easily offended by violence, language, or nudity this is not the movie for you but if you have a sense of humor and want to be entertained for 2 straight hours you will love this movie.",
-                    NStars =10, Data=new DateTime(2016,2,17), FilmeFK=2},
+                    NStars =10, Data=new DateTime(2016,2,17), FilmeFK=2, UtilizadorFK=2},
                 new Reviews {IdReview=7, TituloReview="a much needed breath of fresh air in a stale genre",
                     Review ="At first glance, Deadpool seems like a typical superhero movie due to it being made by Marvel. But once those hilarious intro credits show up, you know you are in for one of the most creative films in recent years. " +
                     "The first thing that is unique about this film is the characters. In typical superhero films the characters are stiff and super serious, in Deadpool the characters are filled with personality and can range from the serious Francis to the silly Deadpool giving this a parody like feel, in a good way. " +
                     "Also what is different is that this is a story of revenge rather then saving the city/world/universe that is seen in every single superhero film. Also the tone of film is more comic then dark thanks to the fantastic humor of all kinds from slapstick to dirty to just plain silly, this film just does not stop the laughs (I laughed 20- 30 times in my SECOND watch). " +
                     "As for being an origin story, I can say that the backstory placements were well done, equally as funny, and explains only what is important in understanding the story.Final rating 10 / 10 this is a great nominee for movie of the year and one of the greatest comedies ever made",
-                    NStars =9, Data=new DateTime(2016,9,26), FilmeFK=2},
+                    NStars =9, Data=new DateTime(2016,9,26), FilmeFK=2, UtilizadorFK=3},
                 new Reviews {IdReview=8, TituloReview="Funny, entertaining and refreshing",
                     Review ="I am aware that to many people (especially those unfamiliar with Deadpool comic or Marvel comics at all) this movie would seem too gory, unnecessary brutal and excessively violent. But this movie is a comedy, where its main protagonist, Deadpool, should be perceived as a comedian, and Ryan Reynolds did an excellent job representing this character. " +
                     "The story of Deadpool isn't complex or profound - and it wasn't meant to be. This movie is all about fun and entertainment, abundant with action, jokes, blood and foul language. Therefore, it is not suitable for children.I grew tired of people thinking that movies based on comics are intended for children only. " +
                     "Related to that, I believe that many Marvel movies could have been far more successful if they didn't refrain from gory scenes. I am sorry, but if you want to make a serious combat-based movie and you make it without blood, than that movie will be all but serious. " +
                     "That is why I see Deadpool as a refreshment.Nowadays many writers and directors are too worried about political correctness in their movies. That really stifles creativity and that is why today we have so many movies with great ideas but poor realization. " +
                     "Thus, to me, Deadpool was a very pleasant surprise, I had fun watching it, and I intend to watch it again some time soon.",
-                    NStars =8, Data=new DateTime(2016,10,18), FilmeFK=2},
+                    NStars =8, Data=new DateTime(2016,10,18), FilmeFK=2, UtilizadorFK=4},
                 new Reviews {IdReview=9, TituloReview="Self-congratulatory and Gratuitous Despite Technical Triumph",
                     Review ="Del Toro's gift for effective story-telling cannot be denied. However, the film plays perfectly into mainstream Hollywood sensibilities, does not have a profound artistic vision, and fails to challenge the audience in any meaningful way. It has the quintessential villain in the liberal cultural imagination today - a racist, sexist, ableist, psychopathic white man in the 60s. He lives in a bourgeois suburban neighborhood and has the quintessential white nuclear family. The fact that he is made to exhibit psychopathic behaviors is of course a way to obscure the irreducibly cultural, structural, and political conditions that the film purports to problematize. The equally cut-and-dry story is about people living at the margins of society bonding over their mutually subjugated status. The self-congratulatory moralistic undertone of this film suspends any need for serious cultural reflection. Shown to conservatives, the film is unlikely to have any converts to progressive politics. Shown to liberals, it will only confirm their pre-established identitarian convictions. Sprinkled with some gratuitous violence, it is the perfect candidate for the Oscars - a polished, glib, pandering, ostensibly radical fairy tale that ultimately does not have any enduring contribution to an already mediocre culture.",
-                    NStars =6, Data=new DateTime(2018,2,4), FilmeFK=3},
+                    NStars =6, Data=new DateTime(2018,2,4), FilmeFK=3, UtilizadorFK=1},
                 new Reviews {IdReview=10, TituloReview="Really boring!",
                     Review ="I don't find anything interesting in this movie. I know that most people love it but does it deserve 13 Oscar nominations? At least they only won 4. And the end is the most dissapointing part. Can anyone say that I'm wrong?",
-                    NStars =1, Data=new DateTime(2018,3,22), FilmeFK=3},
+                    NStars =1, Data=new DateTime(2018,3,22), FilmeFK=3, UtilizadorFK=2},
                 new Reviews {IdReview=11, TituloReview="If you have a taste for the unusual, I highly recommend The Shape of Water",
                     Review ="When my movie theatre-working friend said this was weird, I said it was also beautiful to which he said \"Huh?\" though he also said to a co-worker he also liked it. Kudos to the director, writers, and all the cast for this fine film about a mute woman who feels something for a creature brought to the lab building she works for as a domestic. So on that note, if you have a taste for the unusual, I highly recommend The Shape of Water.",
-                    NStars =10, Data=new DateTime(2018,2,1), FilmeFK=3},
+                    NStars =10, Data=new DateTime(2018,2,1), FilmeFK=3, UtilizadorFK=3},
                 new Reviews {IdReview=12, TituloReview="Entertaining comedy",
                     Review ="All too often people like to rag on movies like this. Not every movie to hit the cinema will be Oscar worthy, Not every movie will be written with a story that will move you to tears or challenge your thinking. Set your expectations for the movie you will see and you are less likely to be disappointed." +
                     "Chips is an entertaining cop buddy flick, rated R and has some adult humor. Both Pena and Shepard play their parts well and along the way the movie pokes fun at itself and the genre. There are plenty of laughs to be had here and overall the movie went at a steady pace. There is nothing ground breaking in it but I wanted a laugh, I got a laugh. Hopefully it does well enough at the box office to get a sequel.",
-                    NStars =7, Data=new DateTime(2017,3,29), FilmeFK=4},
+                    NStars =7, Data=new DateTime(2017,3,29), FilmeFK=4, UtilizadorFK=1},
                 new Reviews {IdReview=13, TituloReview="People are being too harsh, very funny film!!",
                     Review ="As a preface, I have never seen an episode of the original show; I knew Estrada was in it and that's all. So, if you're a fan of the series, I cannot say whether you will enjoy this film (though based on other reviews I've read, it seems unlikely). " +
                     "What I can tell you is that I had low expectations and just wanted a laugh. Dax Sheppard's films have always been hit-or-miss for me. When I bought the tickets, I wasn't even aware that it was rated R. " +
                     "I was very pleasantly surprised! My friend and I both laughed non-stop at the off-the-wall humor. The success of the jokes was in the delivery - often very deadpan and unexpected. Some reviewers complained about the sex addiction/masturbation jokes, but I found them hilarious due to Sheppard's sincere concern and Peña's awkward embarrassment. " +
                     "As a motorcyclist, I very much enjoyed all the bike action and liked that they kept it relatively realistic (but don't look for realism as a general rule; that's not what comedy is about) regarding the necessary skills (Ponche thought he could match Baker and was sorely mistaken) and the comparative speed of a lightweight sport bike vs. the clunky cruisers. I also loved that, when they upgraded to sport bikes themselves, they wore proper full-body riding gear instead of promoting riding in street clothes as most films do. " +
                     "In short: this is a riot, not an Oscar - winner.Go for laughs, not for a serious cop film.",
-                    NStars =9, Data=new DateTime(2017,4,2), FilmeFK=4},
+                    NStars =9, Data=new DateTime(2017,4,2), FilmeFK=4, UtilizadorFK=2},
                 new Reviews {IdReview=14, TituloReview="Stupid",
                     Review ="If I could give this negative stars, I would! This has to be one of the dumbest movies of all time and CHIPS was an awesome television show. " +
                     "I should have know that this would be nothing like the show given the fact that Dax wrote and directed it. Barf-o-rama! I wish these comedians would stop attempting to remake television shows that were awesome back in the day and turning them into a crap fest.",
-                    NStars =3, Data=new DateTime(2017,6,1), FilmeFK=4},
+                    NStars =3, Data=new DateTime(2017,6,1), FilmeFK=4, UtilizadorFK=3},
                 new Reviews {IdReview=15, TituloReview="good light fun",
                     Review ="Being one of my favorite TV shows from my child hood I was dreading this remake, but if you let go of the past you will enjoy this movie for what it is and its just light fun with some really funny moments. " +
                     "Plot wise its pretty predictable but is was not 2 hours of my life wasted and in the end I enjoyed the new CHIPS. " +
                     "Ignore the critic wannabe's and give it a go, just don't expect anything from the 80's or that will make you think.",
-                    NStars =7, Data=new DateTime(2017,4,24), FilmeFK=4},
+                    NStars =7, Data=new DateTime(2017,4,24), FilmeFK=4, UtilizadorFK=4},
                 new Reviews {IdReview=16, TituloReview="A decent sci-fi rental that plays it too safe.",
                     Review ="I'm just going to list my takeaways from the movie in list format. Maybe it will be helpful to someone, maybe not. " +
                     "Pros - The production is immaculate. The cinematography, set design, CGI, all of it is top notch, as expected from a movie starring two of the most popular current actors. - Although I'm not crazy about Jennifer Lawrence, and I only really like Chris Pratt as Starlord, I will go ahead and list them as a pro, since they did a good job with these characters. Michael Sheen is also welcome in any movie. " +
                     "Cons - The science of the movie is a bit slinky at times, obviously to serve narrative motives. Other reviewers have detailed these inaccuracies, so I won't get into it, here. - The movie mostly leans toward a romantic drama vibe, and I personally think there should have been more of a sense of dread and danger throughout the movie, not just near the end. - Given the high profile status of the leads, the sex scenes are predictably tame and brief. Along with the lack of danger, the lack of eroticism is another way in which the movie plays it too safe. - The catharsis at the end that stems from the main moral dilemma (which I won't spoil) does not occur satisfactorily in my opinion. It didn't move me at all, and made it feel like it was never that important to begin with. " +
                     "In summary, this is an entertaining, but light sci - fi romance.It feels like a 70's sci-thriller that has been thoroughly processed for a general audience. It makes a good rental, but I couldn't help but lament that it wasn't the riskier, edgier film that it wanted to be.",
-                    NStars =6, Data=new DateTime(2017,4,7), FilmeFK=5},
+                    NStars =6, Data=new DateTime(2017,4,7), FilmeFK=5, UtilizadorFK=1},
                 new Reviews {IdReview=17, TituloReview="Haunting and beautiful",
                     Review ="I have to admit that I had low expectations when I was going to see this movie. The negative reviews are why. Appearance that the film has gone bad, not earned enough, etc. But it does not make sense to listen to others. The best part is to find out yourself. And I have to admit that I enjoyed this movie well, even though I understand some of the criticisms. At the same time, I know that Morten Tyldum is an incredibly good director. One of the best Norwegian directors, without a doubt. I think it's strange that he made something directly bad. The film is not a featured sci fi movie, even if the action takes place on a spaceship. I enjoyed the movie for three reasons: 1) The story is unique, and something I've never seen before. It's always a good sign. 2) It's beautiful to watch, great movie, spectacular setups and scenes. It was impressive and 3) This movie works to switch between a love story and some action sequences. It seems like a thoughtful movie, and I appreciated the thought behind scenes and action. The few people we meet in the film give insight and one becomes familiar with the characters. It is also a strength, but perhaps also a weakness. The gallery is limited. But anyway, I recommend this and hope to see similar movies in the future.",
-                    NStars =8, Data=new DateTime(2017,5,16), FilmeFK=5},
+                    NStars =8, Data=new DateTime(2017,5,16), FilmeFK=5, UtilizadorFK=2},
                 new Reviews {IdReview=18, TituloReview="Definition of Script Problems",
                     Review ="In all science fiction, suspension of disbelief is required to become engaged in the story. However, what the writers of Passengers fail to realize is that suspension of disbelief applies to technology, not human stupidity. The audience can overlook warp drive, ray guns, transporters, etc., but what can't be overlooked is a total lack of common sense in using this technology. There were many opportunities for interesting story lines, but Passengers attempts to patch plot holes that don't work instead of exploring concepts that do. " +
                     "The story centers around a star ship with 5000 passengers and over 200 crew members placed in hibernation for a 120 year trip to another star system to colonize another planet.This part of the story is plausible and even thought provoking.Even the ship itself is based on realistic designs.The science behind this background is sound.The ship is traveling at half the speed of light to a star system 60 light years away for a 120 year trip.Passengers are placed in hibernation to make the trip.So far all of this works and is interesting, but this is about a 5 minute background setting.After that things fall apart.Two passengers are accidentally awoken 90 years too early and face death from old age out in the void of space before reaching a destination.To make this plot work, the unbelievable is required.First, no one is watching the ship, not even automation.If this was a real ship, when an anomaly is detected the crew would be awoken to take care of the problem and put back into hibernation even if they do not take shifts over the century long trip. Second, there is no way to get a person back into hibernation in any way whatsoever.On a trip like this, that disbelief cannot be suspended, because it is too absurd to imagine. There are other things about this story that cannot be disbelieved, but the ones I have mentioned make this plot fall apart." +
                     "One aspect that is interesting, but not properly explored is the reference to The Shining that dominates the movie.When this reference is first introduced the parallels to the insanity that develops from isolation or even possibly a haunted ship were obvious and the prospect exciting.However, the movie does not explore this and the reference is relegated to a running joke.Unfortunate. " +
                     "The setup of the plot has so many possibilities, but you will end this movie realizing that it is a classic example of a problem script that piles on the increasingly absurd and unbelievable in an attempt to cover the holes.",
-                    NStars =4, Data=new DateTime(2017,4,10), FilmeFK=5},
+                    NStars =4, Data=new DateTime(2017,4,10), FilmeFK=5, UtilizadorFK=3},
                 new Reviews {IdReview=19, TituloReview="\"Passengers\" offers more than the reviews are giving credit!",
                     Review ="I read many of the reviews too, and while I always say that every movie will treat everyone in a different way, I am a little surprised by the amount of people who didn't enjoy it! I thought this movie was beautiful! " +
                     "If you want a movie with conflict, space exploration, romance, and sci-fi...this movie is for you.While it's not loaded with 'blow em up' action, the movie is filled with tension and does have some great action scenes. The best aspect of the movie (to me) is that the filmmakers were very successful at turning a situation so incredible into something simple and human. " +
                     "I walked away from this movie not wanting it to end.Screw the bad reviews, see it for yourself and maybe you'll see what I saw!",
-                    NStars =9, Data=new DateTime(2017,12,23), FilmeFK=5},
+                    NStars =9, Data=new DateTime(2017,12,23), FilmeFK=5, UtilizadorFK=4},
                 new Reviews {IdReview=20, TituloReview="Good ideas, Bad scenario",
                     Review ="I had really great expectations for this movie, and maybe that's the reason why I was so disappointed. Of course, all the actors are great, and even though the direction is not bad, it's really a typical love movie scenario, with the doubt at the beginning, the intense love, the betrayal, and finally the traditional happy ending. That could've been good without all the inconsistencies there are. For example, why didn't they thought to resurrect the captain, just as Aurora did for Jim? And there was enough place for both of them in the end. It would be Titanic all over again if Rose had decided to stay in the water with Jack. Not a bad movie, some ideas are great : leaving a man alone with his thoughts and robots to see his attitude evolve is interesting, the fact that he sacrificed a life instead of staying alone too, but those ideas could've been pushed so much further if they did not decided to focus on their love story. Honorable mention to Arthur, the best character in my opinion.",
-                    NStars =5, Data=new DateTime(2017,2,26), FilmeFK=5}
+                    NStars =5, Data=new DateTime(2017,2,26), FilmeFK=5, UtilizadorFK=5}
             };
             reviews.ForEach(rr => context.Reviews.AddOrUpdate(r => r.IdReview, rr));
             context.SaveChanges();
-            
+              
             var categorias = new List<Categorias> {
                 new Categorias {IdCategoria=1,Nome="Action", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[3] } },
                 new Categorias {IdCategoria=2,Nome="Adventure", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[2] } },
@@ -168,7 +181,7 @@ namespace TrabalhoFinalBackEnd.Migrations
             };
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.IdCategoria, cc));
             context.SaveChanges();
-
+            
             var imagens = new List<Imagens> {
                 new Imagens {IdImg=1,Nome="Img_1.jpg",FilmeFK=1},
                 new Imagens {IdImg=2,Nome="Img_2.jpg",FilmeFK=1},
@@ -188,7 +201,8 @@ namespace TrabalhoFinalBackEnd.Migrations
             };
             imagens.ForEach(ii => context.Imagens.AddOrUpdate(i => i.IdImg, ii));
             context.SaveChanges();
-
+            
+            
             var atores = new List<Atores> {
                 new Atores {IdAtor=1,Nome="Robert Downey Jr.",DataNascimento=new DateTime(1965,4,4),Imagem="img_ator_1.jpg"},
                 new Atores {IdAtor=2,Nome="Chris Hemsworth",DataNascimento=new DateTime(1983,8,11),Imagem="img_ator_2.jpg"},
@@ -257,7 +271,7 @@ namespace TrabalhoFinalBackEnd.Migrations
             };
             atores.ForEach(aa => context.Atores.AddOrUpdate(a => a.IdAtor, aa));
             context.SaveChanges();
-
+            
             var personagens = new List<Personagens> {
                 new Personagens {IdPersonagem=1,Nome="Iron Man",Imagem="img_pers_1.jpg",FilmeFK=1, AtorFK=1},
                 new Personagens {IdPersonagem=2,Nome="Thor",Imagem="img_pers_2.jpg",FilmeFK=1, AtorFK=2},
@@ -326,6 +340,7 @@ namespace TrabalhoFinalBackEnd.Migrations
             };
             personagens.ForEach(pp => context.Personagens.AddOrUpdate(p => p.IdPersonagem, pp));
             context.SaveChanges();
+            
         }
     }
 }
