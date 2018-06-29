@@ -67,7 +67,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz, int[] idCategorias)
+        public ActionResult Create([Bind(Include = "IdFilme,Nome,DataLancamento,Realizador,Companhia,Duracao,Resumo,Trailer,Cartaz")] Filmes filme, HttpPostedFileBase fileUploadCartaz,HttpPostedFileBase[] files, int[] idCategorias)
         {
             // determinar o ID do novo Filme
             int novoID = 0;
@@ -108,6 +108,44 @@ namespace TrabalhoFinalBackEnd.Controllers
                 // não há imagem...
                 ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
                 return View(filme); // reenvia os dados do 'Agente' para a View
+            }
+
+
+            // determinar o ID da nova imagem
+            int imgID = 0;
+            // *****************************************
+            // proteger a geração de um novo ID
+            // *****************************************
+            // determinar o nº de Filme na tabela
+            if (db.Imagens.Count() == 0)
+            {
+                imgID = 1;
+            }
+            else
+            {
+                imgID = db.Imagens.Max(a => a.IdImg) + 1;
+            }
+
+            for (var i = 0; i < files.Length;i++)
+            {
+                var img = files[i];
+                var imagem = new Imagens();
+
+                // atribuir o ID ao novo Filme
+                imagem.IdImg = novoID;
+                imagem.FilmeFK = filme.IdFilme;
+
+                string nomeImg = "img_" + imagem.IdImg + ".jpg";
+                string pathFotografia = Path.Combine(Server.MapPath("~/imagens/"), nomeImg); // indica onde a imagem será guardada
+
+                // guardar o nome da imagem na BD
+                imagem.Nome = nomeImg;
+                if (ModelState.IsValid)
+                {
+                    db.Imagens.Add(imagem);
+                    img.SaveAs(pathFotografia);
+                }
+                novoID++;
             }
 
             if (ModelState.IsValid)

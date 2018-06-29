@@ -53,7 +53,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             }
             ViewBag.Filme = db.Reviews.Find(id).Filme.Nome;
             Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null)
+            if (reviews == null || User.Identity.Name!=reviews.Utilizador.UserName || !User.IsInRole("Admin"))
             {
                 return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
             }
@@ -84,7 +84,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return RedirectToAction("Index", "Filmes", null);
             }
             Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null)
+            if (reviews == null || User.Identity.Name != reviews.Utilizador.UserName || !User.IsInRole("Admin"))
             {
                 return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
             }

@@ -11,6 +11,7 @@ namespace Trabalho_Final.Models
     {
         [Key]
         [Display(Name = "Number")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdPersonagem { get; set; }
 
         [Required(ErrorMessage = "The {0} is required!")]

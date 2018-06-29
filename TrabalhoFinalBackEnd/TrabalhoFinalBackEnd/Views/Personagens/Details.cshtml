@@ -1,0 +1,50 @@
+﻿@model Trabalho_Final.Models.Personagens
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Personagens</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ator.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ator.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Filme.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Filme.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imagem)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPersonagem }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

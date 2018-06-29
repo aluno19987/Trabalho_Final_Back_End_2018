@@ -58,18 +58,18 @@
             {
                 var selecionado = Model.ListaCategorias.Any(c => c.IdCategoria == categorias.IdCategoria);
 
-            <div>
-                @if (selecionado)
-                {
-                    <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" checked /> @categorias.Nome
-                }
-                else
-                {
-                    <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" /> @categorias.Nome
-                }
+                <div>
+                    @if (selecionado)
+                    {
+                        <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" checked /> @categorias.Nome
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" /> @categorias.Nome
+                    }
 
 
-            </div>
+                </div>
             }
         </div>
     </div>
@@ -107,6 +107,26 @@
             </p>
         </div>
     </div>
+    <div class="container" style="height:600px; overflow-y:scroll;">
+
+        @foreach (var personagem in Model.ListaPersonagens.ToList())
+        {
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+                    <h4>@personagem.Nome</h4>
+                    <img src="/ImagensPersonagens/@personagem.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
+                    @Html.ActionLink("Edit", "Edit", "Personagens", new { id = personagem.IdPersonagem }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Personagens", new { id = personagem.IdPersonagem }, null)
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <h4>@personagem.Ator.Nome</h4>
+                    <img src="/ImagensAtores/@personagem.Ator.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    @Html.ActionLink("Create", "Create", "Personagens", new { FilmeFK = Model.IdFilme }, null) |
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />

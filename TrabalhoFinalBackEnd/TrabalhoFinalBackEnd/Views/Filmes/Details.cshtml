@@ -107,9 +107,9 @@
         <h2>Reviews</h2>
         @Html.Partial("_ReviewsPartial", Model.ListaReviews)
 
-        <p>
+        <a>
             @Html.ActionLink("Create Review", "Create", "Reviews", new { FilmeFK = Model.IdFilme }, null)
-        </p>
+        </a>
 
 
     </div>
