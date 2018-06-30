@@ -26,7 +26,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Imagem, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="fileUploadCartaz" style="color:blue;" accept=".jpg" />
+            <input type="file" name="fileUpload" style="color:blue;" accept=".jpg" />
             @Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -38,7 +38,7 @@
             @Html.ValidationMessageFor(model => model.AtorFK, "", new { @class = "text-danger" })
         </div>
     </div>
-    @Html.HiddenFor(item => item.FilmeFK)
+    @Html.HiddenFor(model => model.FilmeFK)
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />
@@ -48,7 +48,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Film", "Index")
+    @Html.ActionLink("Back to Film", "Edit", "Filmes", new { id = Model.FilmeFK })
 </div>
 
 @section Scripts {

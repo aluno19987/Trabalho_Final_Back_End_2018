@@ -11,6 +11,7 @@ using Trabalho_Final.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
+    [Authorize]
     public class ReviewsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -31,13 +32,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
         {
-            
+            var utilizador =db.Utilizadores.Where(un => un.UserName == User.Identity.Name).Single();
+            reviews.UtilizadorFK = utilizador.ID;
             if (ModelState.IsValid)
             {
                 reviews.Data = DateTime.Now;
                 db.Reviews.Add(reviews);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Filmes" , new { id = reviews.FilmeFK });
             }
 
             ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", reviews.FilmeFK);
@@ -65,8 +67,9 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
+        public ActionResult Edit([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK,UtilizadorFK")] Reviews reviews)
         {
+
             if (ModelState.IsValid)
             {
                 reviews.Data = DateTime.Now;
@@ -84,9 +87,11 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return RedirectToAction("Index", "Filmes", null);
             }
             Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null || User.Identity.Name != reviews.Utilizador.UserName || !User.IsInRole("Admin"))
+            if (reviews == null || User.Identity.Name != reviews.Utilizador.UserName)
             {
-                return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+                if (!User.IsInRole("Admin")) { 
+                    return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+                }
             }
             return View(reviews);
         }

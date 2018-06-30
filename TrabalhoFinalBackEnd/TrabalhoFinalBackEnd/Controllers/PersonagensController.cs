@@ -16,13 +16,7 @@ namespace TrabalhoFinalBackEnd.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Personagens
-        public ActionResult Index()
-        {
-            var personagens = db.Personagens.Include(p => p.Ator).Include(p => p.Filme);
-            return View(personagens.ToList());
-        }
-
+       
         // GET: Personagens/Details/5
         public ActionResult Details(int? id)
         {
@@ -40,8 +34,11 @@ namespace TrabalhoFinalBackEnd.Controllers
 
         // GET: Personagens/Create
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(int FilmeFK)
+        public ActionResult Create(int? FilmeFK)
         {
+            if (FilmeFK == null){
+                return RedirectToAction("Index", "Filmes");
+            }
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome");
             ViewBag.filme = db.Filmes.Find(FilmeFK);
             return View();
@@ -52,49 +49,49 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdPersonagem,Nome,Imagem,FilmeFK,AtorFK")] Personagens personagens, HttpPostedFileBase fileUploadCartaz)
+        public ActionResult Create([Bind(Include = "IdPersonagem,Nome,Imagem,FilmeFK,AtorFK")] Personagens personagens, HttpPostedFileBase fileUpload)
         {
-            // determinar o ID do novo Filme
+            // determinar o ID da nova imagem
             int novoID = 0;
             // *****************************************
             // proteger a geração de um novo ID
             // *****************************************
             // determinar o nº de Filme na tabela
-            if (db.Personagens.Count() == 0)
+            if (db.Imagens.Count() == 0)
             {
                 novoID = 1;
             }
             else
             {
-                novoID = db.Personagens.Max(a => a.IdPersonagem) + 1;
+                novoID = db.Imagens.Max(a => a.IdImg) + 1;
             }
             // atribuir o ID ao novo Filme
             personagens.IdPersonagem = novoID;
 
             string nomeFotografia = "img_pers_" + personagens.IdPersonagem + ".jpg";
-            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeFotografia); // indica onde a imagem será guardada
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensPersonagens/"), nomeFotografia); // indica onde a imagem será guardada
 
             // guardar o nome da imagem na BD
             personagens.Imagem = nomeFotografia;
-            if (fileUploadCartaz == null)
+            if (fileUpload == null)
             {
                 // não há imagem...
                 ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
-                return View(personagens); // reenvia os dados do 'Agente' para a View
+                return RedirectToAction("Create", new { FilmeFk = personagens.FilmeFK }); // reenvia os dados do 'Personagem' para a View
             }
-
 
 
             if (ModelState.IsValid)
             {
                 db.Personagens.Add(personagens);
                 db.SaveChanges();
-                fileUploadCartaz.SaveAs(caminhoParaFotografia);
+                fileUpload.SaveAs(caminhoParaFotografia);
                 return RedirectToAction("Edit", "Filmes", new { id = personagens.FilmeFK });
             }
 
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome", personagens.AtorFK);
             ViewBag.filme =db.Filmes.Find(personagens.FilmeFK);
+
             return RedirectToAction("Create", "Personagens", new { FilmeFK = personagens.FilmeFK });
         }
 
@@ -104,7 +101,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Filmes");
             }
             Personagens personagens = db.Personagens.Find(id);
             if (personagens == null)
@@ -112,7 +109,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return HttpNotFound();
             }
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome", personagens.AtorFK);
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", personagens.FilmeFK);
+            ViewBag.filme = personagens.Filme;
             return View(personagens);
         }
 
@@ -121,16 +118,25 @@ namespace TrabalhoFinalBackEnd.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPersonagem,Nome,Imagem,FilmeFK,AtorFK")] Personagens personagens)
+        public ActionResult Edit([Bind(Include = "IdPersonagem,Nome,Imagem,FilmeFK,AtorFK")] Personagens personagens, HttpPostedFileBase fileUploadPersonagem)
         {
+            string nomeFotografia = "img_pers_" + personagens.IdPersonagem + ".jpg";
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensPersonagens/"), nomeFotografia); // indica onde a imagem será guardada
+            personagens.Imagem = nomeFotografia;
+
             if (ModelState.IsValid)
             {
                 db.Entry(personagens).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (fileUploadPersonagem!=null)
+                {
+                    fileUploadPersonagem.SaveAs(caminhoParaFotografia);
+                }
+
+                return RedirectToAction("Edit","Filmes", new { id = personagens.FilmeFK });
             }
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome", personagens.AtorFK);
-            ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", personagens.FilmeFK);
+            ViewBag.filme = personagens.Filme;
             return View(personagens);
         }
 
@@ -140,7 +146,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Filmes");
             }
             Personagens personagens = db.Personagens.Find(id);
             if (personagens == null)
@@ -158,7 +164,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             Personagens personagens = db.Personagens.Find(id);
             db.Personagens.Remove(personagens);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Filmes", new { id = personagens.FilmeFK });
         }
 
         protected override void Dispose(bool disposing)

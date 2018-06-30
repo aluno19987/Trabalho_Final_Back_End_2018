@@ -107,6 +107,13 @@
             </p>
         </div>
     </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h2>Caracters</h2>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <h2>Actors</h2>
+    </div>
     <div class="container" style="height:600px; overflow-y:scroll;">
 
         @foreach (var personagem in Model.ListaPersonagens.ToList())
@@ -126,9 +133,9 @@
             <hr />
         }
     </div>
-    @Html.ActionLink("Create", "Create", "Personagens", new { FilmeFK = Model.IdFilme }, null) |
+    @Html.ActionLink("Create Caracter", "Create", "Personagens", new { FilmeFK = Model.IdFilme }, null)
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-2 col-md-10">                     
             <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>

@@ -50,7 +50,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             imagens.IdImg = novoID;
             
             string nomeFotografia = "img_" + imagens.IdImg + ".jpg";
-            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/imagens/"), nomeFotografia); // indica onde a imagem será guardada
+            string caminhoParaFotografia = Path.Combine(Server.MapPath("~/Imagens/"), nomeFotografia); // indica onde a imagem será guardada
 
             // guardar o nome da imagem na BD
             imagens.Nome = nomeFotografia;
@@ -58,7 +58,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             {
                 // não há imagem...
                 ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
-                return RedirectToAction("Create",new { FilmeFk = imagens.FilmeFK}); // reenvia os dados do 'Agente' para a View
+                return RedirectToAction("Create",new { FilmeFk = imagens.FilmeFK}); // reenvia os dados do 'Personagem' para a View
             }
             
             if (ModelState.IsValid)
@@ -85,7 +85,11 @@ namespace TrabalhoFinalBackEnd.Controllers
             }
             Imagens imagens = db.Imagens.Find(id);
             ViewBag.filme = imagens.Filme;
-            return RedirectToAction("Edit", "Filmes", new { id = imagens.FilmeFK });
+            if (imagens == null)
+            {
+                return HttpNotFound();
+            }
+            return View(imagens);
         }
 
         // POST: Imagens/Delete/5
@@ -96,7 +100,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             Imagens imagens = db.Imagens.Find(id);
             db.Imagens.Remove(imagens);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit","Filmes", new { id = imagens.FilmeFK });
         }
 
         protected override void Dispose(bool disposing)

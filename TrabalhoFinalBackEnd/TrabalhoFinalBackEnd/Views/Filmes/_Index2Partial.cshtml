@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Trabalho_Final.Models.Filmes>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6" padding-bottom:20px;">
+            <h3>Most Recent</h3>
+            <div class="card well" style="width:290px; height:490px; margin-bottom:30px">
+                <a href="/Filmes/Details/@ViewBag.recente.IdFilme">
+                    <img class="card-img-top" src="~/ImagensCartaz/@ViewBag.recente.Cartaz" style="width:250px; height:400px" />
+                </a>
+                <h3 style="color:black">@ViewBag.recente.Nome</h3>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6" padding-bottom:20px;">
+            <h3>Most Popular</h3>
+            <div class="card well" style="width:290px; height:490px; margin-bottom:30px">
+                <a href="/Filmes/Details/@ViewBag.MostPopular.IdFilme">
+                    <img class="card-img-top" src="~/ImagensCartaz/@ViewBag.MostPopular.Cartaz" style="width:250px; height:400px" />
+                </a>
+                <h3 style="color:black">@ViewBag.MostPopular.Nome</h3>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6" padding-bottom:20px;">
+            <h3>Best Rated</h3>
+            <div class="card well" style="width:290px; height:490px; margin-bottom:30px">
+                <a href="/Filmes/Details/@ViewBag.BestRated.IdFilme">
+                    <img class="card-img-top" src="~/ImagensCartaz/@ViewBag.BestRated.Cartaz" style="width:250px; height:400px" />
+                </a>
+                <h3 style="color:black">@ViewBag.BestRated.Nome</h3>
+            </div>
+        </div>
+    </div>
+</div>

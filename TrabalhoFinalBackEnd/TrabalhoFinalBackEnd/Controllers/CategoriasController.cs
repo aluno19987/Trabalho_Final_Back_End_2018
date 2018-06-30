@@ -29,22 +29,6 @@ namespace TrabalhoFinalBackEnd.Controllers
             return PartialView("~/Views/Shared/_CategoriasPartial.cshtml", db.Categorias.ToList());
         }
 
-        // GET: Categorias/Details/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categorias categorias = db.Categorias.Find(id);
-            if (categorias == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categorias);
-        }
-
         // GET: Categorias/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()

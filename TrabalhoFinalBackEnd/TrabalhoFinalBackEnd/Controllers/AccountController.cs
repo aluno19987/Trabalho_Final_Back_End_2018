@@ -152,7 +152,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Utilizador.UserName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -212,7 +212,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
+        
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]

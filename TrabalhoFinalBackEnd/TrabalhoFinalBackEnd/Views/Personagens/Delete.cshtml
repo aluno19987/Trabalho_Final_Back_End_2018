@@ -40,19 +40,17 @@
         </dt>
 
         <dd>
-            <img src=""/>
-            @Html.DisplayFor(model => model.Imagem)
+            <img src="/ImagensPersonagens/@Model.Imagem" style="height:300px; width:500px; object-fit:cover;" />
         </dd>
 
     </dl>
-    0o
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to Film", "Edit", "Filmes", new { id = Model.FilmeFK })
         </div>
     }
 </div>

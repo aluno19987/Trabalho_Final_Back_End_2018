@@ -19,7 +19,7 @@
         {
         
             <div class="col-lg-4 col-md-4 col-sm-6" padding-bottom:20px;">
-                <div class="card well" style="background-color:grey ;width:290px; height:480px; margin-bottom:30px">
+                <div class="card well" style="width:290px; height:490px; margin-bottom:30px">
                     <a href="/Filmes/Details/@item.IdFilme">
                         <img class="card-img-top" src="~/ImagensCartaz/@item.Cartaz" style="width:250px; height:400px" />
                     </a>
@@ -28,7 +28,7 @@
                     <div>
                         @if (User.IsInRole("Admin"))
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.IdFilme }) 
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdFilme })
                             <span>|</span>
                             @Html.ActionLink("Delete", "Delete", new { id = item.IdFilme })
                         }

@@ -11,15 +11,13 @@ namespace Trabalho_Final.Models
     {
         [Key]
         [Display(Name = "Number")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdPersonagem { get; set; }
 
         [Required(ErrorMessage = "The {0} is required!")]
         [RegularExpression("[A-Za-záéíóúãõàèìòùâêîôûäëïöüç.:() 0-9-]+", ErrorMessage = "The {0} is not acceptable")]
         [Display(Name = "Name")]
         public string Nome { get; set; }
-
-        [Required(ErrorMessage = "The {0} is required!")]
+        
         [Display(Name = "Image")]
         public string Imagem { get; set; }
 

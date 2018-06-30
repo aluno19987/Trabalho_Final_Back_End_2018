@@ -37,6 +37,51 @@ namespace TrabalhoFinalBackEnd.Controllers
             return View(model);
         }
 
+        public ActionResult _Index2Partial()
+        {
+            //coloca na view bag o filme mais recente
+            var listaFilme = db.Filmes.OrderBy(d => d.DataLancamento).ToList();
+            var tam = db.Filmes.Count();
+            ViewBag.recente = listaFilme[tam-1];
+
+            //coloca na view bag o filme mais popular
+            var filmeMostPopular = 0;
+            var numeroReviews = 0;
+            for(int i=0; i<listaFilme.Count();i++)
+            {
+                if (listaFilme[i].ListaReviews.Count() >= numeroReviews)
+                {
+                    filmeMostPopular = i;
+                    numeroReviews = listaFilme[i].ListaReviews.Count();
+                }
+            }
+            ViewBag.MostPopular = listaFilme[filmeMostPopular];
+
+            //coloca na view bag o filme com melhor classificação
+            var filmeBestRated = 0;
+            var melhorPontuacao = 0;
+            var pontuacao = 0;
+            for (int i = 0; i < listaFilme.Count(); i++)
+            {
+                int tamanho = listaFilme[i].ListaReviews.Count();
+                foreach (var review in listaFilme[i].ListaReviews)
+                {
+                    pontuacao += review.NStars;
+                }
+                pontuacao = pontuacao / tamanho;
+                if(pontuacao>= melhorPontuacao)
+                {
+                    melhorPontuacao = pontuacao;
+                    filmeBestRated = i;
+                }
+            }
+            ViewBag.BestRated = listaFilme[filmeBestRated];
+
+            var model = db.Filmes.ToList();
+            return PartialView(model);
+        }
+
+
         // GET: Filmes/Details/5
         public ActionResult Details(int? id)
         {
@@ -49,6 +94,17 @@ namespace TrabalhoFinalBackEnd.Controllers
             {
                 return RedirectToAction("Index");
             }
+            var reviews = db.Reviews.Where(dd => dd.FilmeFK == filmes.IdFilme).ToList();
+            var numReviews = db.Reviews.Where(dd => dd.FilmeFK == filmes.IdFilme).Count();
+            var pontuacao=0;
+
+            foreach (var review in reviews)
+            {
+                pontuacao += review.NStars;
+            }
+            pontuacao = pontuacao / numReviews;
+            ViewBag.classificacao=pontuacao;
+            
             return View(filmes);
         }
 
@@ -61,7 +117,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             ViewBag.listaDeCategorias = db.Categorias.ToList();
             return View();
         }
-
+        
         // POST: Filmes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -85,7 +141,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             }
             // atribuir o ID ao novo Filme
             filme.IdFilme = novoID;
-
+            
             if (idCategorias != null) { 
                 var Categorias = db.Categorias.ToList();
             
@@ -153,7 +209,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.Filmes.Add(filme);
                 db.SaveChanges();
                 fileUploadCartaz.SaveAs(caminhoParaFotografia);
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit","Filmes",new { id = filme.IdFilme});
             }
 
             return View(filme);

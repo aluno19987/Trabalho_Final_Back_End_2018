@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                <img src="/ImagensAtores/@Model.Imagem" style="max-height:550px; max-width:350px"/>
+                <img src="/ImagensAtores/@Model.Imagem" style="max-height:550px; max-width:350px" />
             </div>
             <div class="col-lg-8">
                 <p>
@@ -24,7 +24,24 @@
             </div>
         </div>
     </div>
+    <br />
 
+    <div class="container">
+        <div class="row">
+            <h3>Films</h3>
+            @foreach (var personagem in Model.ListaPersonagens)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6" style="width:290px; height:480px; margin-bottom:30px">
+                    <div class="card well">
+                        <a href="/Filmes/Details/@personagem.Filme.IdFilme">
+                            <img class="card-img-top" src="~/ImagensCartaz/@personagem.Filme.Cartaz" style="width:220px; height:350px" />
+                        </a>
+                        <h3 style="color:black">@personagem.Filme.Nome</h3>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 <hr />
 <p>

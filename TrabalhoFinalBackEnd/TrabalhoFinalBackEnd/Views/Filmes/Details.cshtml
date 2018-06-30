@@ -39,7 +39,10 @@
                 }
             </p>
             <p>
-                <b> @Html.DisplayNameFor(model => model.Resumo)</b>:  @Html.DisplayFor(model => model.Resumo) minutes
+                <b> Classification</b>:  @ViewBag.classificacao /10 
+            </p>
+            <p>
+                <b> @Html.DisplayNameFor(model => model.Resumo)</b>:  @Html.DisplayFor(model => model.Resumo) 
             </p>
         </div>
     </div>
@@ -106,10 +109,10 @@
         <hr />
         <h2>Reviews</h2>
         @Html.Partial("_ReviewsPartial", Model.ListaReviews)
-
         <a>
             @Html.ActionLink("Create Review", "Create", "Reviews", new { FilmeFK = Model.IdFilme }, null)
         </a>
+
 
 
     </div>

@@ -303,7 +303,7 @@
     <Content Include="Views\Personagens\Delete.cshtml" />
     <Content Include="Views\Personagens\Details.cshtml" />
     <Content Include="Views\Personagens\Edit.cshtml" />
-    <Content Include="Views\Personagens\Index.cshtml" />
+    <Content Include="Views\Filmes\_Index2Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
