@@ -22,12 +22,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             Personagens personagens = db.Personagens.Find(id);
             if (personagens == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             return View(personagens);
         }
@@ -36,8 +38,10 @@ namespace TrabalhoFinalBackEnd.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(int? FilmeFK)
         {
-            if (FilmeFK == null){
-                return RedirectToAction("Index", "Filmes");
+            if (FilmeFK == null)
+            {
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome");
             ViewBag.filme = db.Filmes.Find(FilmeFK);
@@ -76,7 +80,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             if (fileUpload == null)
             {
                 // não há imagem...
-                ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
+                TempData["Error"] = "Unexpected error"; // gera MSG de erro
                 return RedirectToAction("Create", new { FilmeFk = personagens.FilmeFK }); // reenvia os dados do 'Personagem' para a View
             }
 
@@ -91,7 +95,7 @@ namespace TrabalhoFinalBackEnd.Controllers
 
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome", personagens.AtorFK);
             ViewBag.filme =db.Filmes.Find(personagens.FilmeFK);
-
+            TempData["Error"] = "Unexpected error";
             return RedirectToAction("Create", "Personagens", new { FilmeFK = personagens.FilmeFK });
         }
 
@@ -101,12 +105,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index", "Filmes");
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             Personagens personagens = db.Personagens.Find(id);
             if (personagens == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome", personagens.AtorFK);
             ViewBag.filme = personagens.Filme;
@@ -135,6 +141,7 @@ namespace TrabalhoFinalBackEnd.Controllers
 
                 return RedirectToAction("Edit","Filmes", new { id = personagens.FilmeFK });
             }
+            TempData["Error"] = "Unexpected error";
             ViewBag.AtorFK = new SelectList(db.Atores, "IdAtor", "Nome", personagens.AtorFK);
             ViewBag.filme = personagens.Filme;
             return View(personagens);
@@ -146,12 +153,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index", "Filmes");
             }
             Personagens personagens = db.Personagens.Find(id);
             if (personagens == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             return View(personagens);
         }

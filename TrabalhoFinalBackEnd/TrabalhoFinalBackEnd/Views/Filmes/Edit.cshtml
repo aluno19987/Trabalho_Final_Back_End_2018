@@ -5,142 +5,145 @@
 }
 
 <h2>@Model.Nome</h2>
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
 
 
-@using (Html.BeginForm("Edit", "Filmes", FormMethod.Post,new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Filmes", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Edit</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.IdFilme)
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DataLancamento, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DataLancamento, new { htmlAttributes = new { @class = "form-control", @Value = Model.DataLancamento.ToString("yyyy-MM-dd") } })
-            @Html.ValidationMessageFor(model => model.DataLancamento, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Realizador, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Realizador, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Realizador, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Companhia, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Companhia, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Companhia, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ListaCategorias, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @foreach (Trabalho_Final.Models.Categorias categorias in ViewBag.listaDeCategorias)
-            {
-                var selecionado = Model.ListaCategorias.Any(c => c.IdCategoria == categorias.IdCategoria);
 
-                <div>
-                    @if (selecionado)
-                    {
-                        <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" checked /> @categorias.Nome
-                    }
-                    else
-                    {
-                        <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" /> @categorias.Nome
-                    }
+    <div class="form-horizontal">
+        <h4>Edit</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdFilme)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataLancamento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataLancamento, new { htmlAttributes = new { @class = "form-control", @Value = Model.DataLancamento.ToString("yyyy-MM-dd") } })
+                @Html.ValidationMessageFor(model => model.DataLancamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Realizador, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Realizador, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Realizador, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Companhia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Companhia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Companhia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListaCategorias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (Trabalho_Final.Models.Categorias categorias in ViewBag.listaDeCategorias)
+                {
+                    var selecionado = Model.ListaCategorias.Any(c => c.IdCategoria == categorias.IdCategoria);
+
+                    <div>
+                        @if (selecionado)
+                        {
+                            <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" checked /> @categorias.Nome
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="idCategorias" value="@categorias.IdCategoria" /> @categorias.Nome
+                        }
 
 
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Resumo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Resumo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Resumo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Trailer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/@Model.Trailer.Substring(32)?rel=0" style="width:500px; height:300px" frameborder="0" allowfullscreen></iframe>
                 </div>
+                @Html.EditorFor(model => model.Trailer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cartaz, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img class="card-img-top" src="~/ImagensCartaz/@Model.Cartaz" style="width:250px; height:400px; padding-bottom:5px;" />
+                <input type="file" name="fileUploadCartaz" style="color:blue;" accept=".jpg" />
+                @Html.ValidationMessageFor(model => model.Cartaz, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListaImagens, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Partial("_ImagensPartial", Model.ListaImagens)
+                <p>
+                    @Html.ActionLink("Add Image", "Create", "Imagens", new { FilmeFK = Model.IdFilme }, null)
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <h2>Caracters</h2>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <h2>Actors</h2>
+        </div>
+        <div class="container" style="height:600px; overflow-y:scroll;">
+
+            @foreach (var personagem in Model.ListaPersonagens.ToList())
+            {
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+                        <h4>@personagem.Nome</h4>
+                        <img src="/ImagensPersonagens/@personagem.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
+                        @Html.ActionLink("Edit", "Edit", "Personagens", new { id = personagem.IdPersonagem }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Personagens", new { id = personagem.IdPersonagem }, null)
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <h4>@personagem.Ator.Nome</h4>
+                        <img src="/ImagensAtores/@personagem.Ator.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
+                    </div>
+                </div>
+                <hr />
             }
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Resumo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Resumo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Resumo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Trailer, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="//www.youtube.com/embed/@Model.Trailer.Substring(32)?rel=0" style="width:500px; height:300px" frameborder="0" allowfullscreen></iframe>
+        @Html.ActionLink("Create Caracter", "Create", "Personagens", new { FilmeFK = Model.IdFilme }, null)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
-            @Html.EditorFor(model => model.Trailer, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Trailer, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Cartaz, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <img class="card-img-top" src="~/ImagensCartaz/@Model.Cartaz" style="width:250px; height:400px; padding-bottom:5px;" />
-            <input type="file" name="fileUploadCartaz" style="color:blue;" accept=".jpg" />
-            @Html.ValidationMessageFor(model => model.Cartaz, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ListaImagens, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.Partial("_ImagensPartial", Model.ListaImagens)
-            <p>
-                @Html.ActionLink("Add Image", "Create", "Imagens", new { FilmeFK = Model.IdFilme }, null)
-            </p>
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h2>Caracters</h2>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h2>Actors</h2>
-    </div>
-    <div class="container" style="height:600px; overflow-y:scroll;">
-
-        @foreach (var personagem in Model.ListaPersonagens.ToList())
-        {
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
-                    <h4>@personagem.Nome</h4>
-                    <img src="/ImagensPersonagens/@personagem.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
-                    @Html.ActionLink("Edit", "Edit", "Personagens", new { id = personagem.IdPersonagem }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Personagens", new { id = personagem.IdPersonagem }, null)
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <h4>@personagem.Ator.Nome</h4>
-                    <img src="/ImagensAtores/@personagem.Ator.Imagem" style="width:200px; height:200px; object-fit:cover;" data-toggle="modal" data-target="#myModal" />
-                </div>
-            </div>
-            <hr />
-        }
-    </div>
-    @Html.ActionLink("Create Caracter", "Create", "Personagens", new { FilmeFK = Model.IdFilme }, null)
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">                     
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-    
 }
 
 <div>

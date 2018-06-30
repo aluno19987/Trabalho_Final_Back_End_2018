@@ -5,7 +5,9 @@
 }
 
 <h2>Movies</h2>
-
+<span class="alert" style="color:red;" >
+    @(TempData["Error"]??string.Empty)
+</span><br />
 @if (User.IsInRole("Admin"))
 {
     <p>

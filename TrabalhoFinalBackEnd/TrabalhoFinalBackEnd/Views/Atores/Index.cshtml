@@ -5,8 +5,11 @@
 }
 
 <h2>Actors</h2>
-
-@if (User.IsInRole("Admin")) { 
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
+@if (User.IsInRole("Admin"))
+{
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>

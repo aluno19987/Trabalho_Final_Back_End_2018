@@ -70,7 +70,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             }
 
             ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", imagens.FilmeFK);
-            ModelState.AddModelError("", "Image not valid");
+            TempData["Error"] = "Unexpected error";
             return RedirectToAction("Edit", "Filmes", new { id = imagens.FilmeFK });
         }
 
@@ -81,13 +81,15 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index", "Filmes");
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             Imagens imagens = db.Imagens.Find(id);
             ViewBag.filme = imagens.Filme;
             if (imagens == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index", "Filmes", null);
             }
             return View(imagens);
         }

@@ -5,12 +5,14 @@
 }
 
 <h2>Edit</h2>
-
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Categorias</h4>
         <hr />

@@ -45,12 +45,12 @@ namespace TrabalhoFinalBackEnd.Migrations
             //*********************************************************************
             // adiciona Utilizadores
             var utilizadores = new List<Utilizadores> {
-                    new Utilizadores {ID=1,UserName="util1@mail.pt"},
-                    new Utilizadores {ID=2,UserName="util2@mail.pt"},
-                    new Utilizadores {ID=3,UserName="util3@mail.pt"},
-                    new Utilizadores {ID=4,UserName="util4@mail.pt"},
-                    new Utilizadores {ID=5,UserName="util5@mail.pt"},
-                    new Utilizadores {ID=6,UserName="admin@mail.pt"},
+                    new Utilizadores {ID=1,Nome="Utilizador1",UserName="util1@mail.pt"},
+                    new Utilizadores {ID=2,Nome="Utilizador2",UserName="util2@mail.pt"},
+                    new Utilizadores {ID=3,Nome="Utilizador3",UserName="util3@mail.pt"},
+                    new Utilizadores {ID=4,Nome="Utilizador4",UserName="util4@mail.pt"},
+                    new Utilizadores {ID=5,Nome="Utilizador5",UserName="util5@mail.pt"},
+                    new Utilizadores {ID=6,Nome="Administrator",UserName="admin@mail.pt"},
                 };
             utilizadores.ForEach(oo => context.Utilizadores.AddOrUpdate(o => o.ID, oo));
             context.SaveChanges();
@@ -304,7 +304,6 @@ namespace TrabalhoFinalBackEnd.Migrations
                 new Personagens {IdPersonagem=28,Nome="Deadpool",Imagem="img_pers_28.jpg",FilmeFK=2, AtorFK=28},
                 new Personagens {IdPersonagem=29,Nome="Dopinder",Imagem="img_pers_29.jpg",FilmeFK=2, AtorFK=29},
                 new Personagens {IdPersonagem=30,Nome="Ajax",Imagem="img_pers_30.jpg",FilmeFK=2, AtorFK=30},
-                new Personagens {IdPersonagem=31,Nome="Colossus",Imagem="img_pers_31",FilmeFK=2, AtorFK=31},
                 new Personagens {IdPersonagem=32,Nome="Voice of Colossus",Imagem="img_pers_32.jpg",FilmeFK=2, AtorFK=32},
                 new Personagens {IdPersonagem=33,Nome="Negasonic Teenage Warhead",Imagem="img_pers_33.jpg",FilmeFK=2, AtorFK=33},
                 new Personagens {IdPersonagem=34,Nome="Jeremy (Pizza Guy)",Imagem="img_pers_34.jpg",FilmeFK=2, AtorFK=34},

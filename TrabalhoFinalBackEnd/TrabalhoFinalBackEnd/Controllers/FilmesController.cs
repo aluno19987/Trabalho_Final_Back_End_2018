@@ -22,7 +22,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         public ActionResult Index( int? idCategoria)
         {
             var model = db.Filmes.ToList();
-            if (idCategoria != null)
+            if (idCategoria != null && idCategoria <= db.Categorias.Count())
             {
                 var Categoria = db.Categorias.Find(idCategoria);
                 var filmes = db.Filmes.ToList();
@@ -87,11 +87,13 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index");
             }
             var reviews = db.Reviews.Where(dd => dd.FilmeFK == filmes.IdFilme).ToList();
@@ -212,6 +214,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return RedirectToAction("Edit","Filmes",new { id = filme.IdFilme});
             }
 
+            TempData["Error"] = "Unexpected error";
             return View(filme);
         }
 
@@ -222,13 +225,14 @@ namespace TrabalhoFinalBackEnd.Controllers
             ViewBag.listaDeCategorias = db.Categorias.ToList();
             if (id == null)
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
 
             if (filmes == null)
             {
-                ModelState.AddModelError("", "Something went wrong...");
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index");
             }
 
@@ -312,7 +316,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             }
 
             // se cheguei aqui, é pq alguma coisa correu mal
-            ModelState.AddModelError("", "Something went wrong...");
+            TempData["Error"] = "Unexpected error";
 
             // visualizar View...
             return View(filme);
@@ -324,11 +328,15 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
+
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
             if (filmes == null)
             {
+
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index");
             }
             return View(filmes);

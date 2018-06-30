@@ -42,6 +42,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return RedirectToAction("Details", "Filmes" , new { id = reviews.FilmeFK });
             }
 
+            TempData["Error"] = "Unexpected error";
             ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", reviews.FilmeFK);
             return View(reviews);
         }
@@ -51,12 +52,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index", "Filmes", null);
             }
             ViewBag.Filme = db.Reviews.Find(id).Filme.Nome;
             Reviews reviews = db.Reviews.Find(id);
             if (reviews == null || User.Identity.Name!=reviews.Utilizador.UserName || !User.IsInRole("Admin"))
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
             }
             return View(reviews);
@@ -76,6 +79,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.Entry(reviews).State = EntityState.Modified;
                 db.SaveChanges();
             }
+            TempData["Error"] = "Unexpected error";
             return RedirectToAction("Details","Filmes", new { id = reviews.FilmeFK});
         }
 
@@ -84,12 +88,15 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
+                TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index", "Filmes", null);
             }
             Reviews reviews = db.Reviews.Find(id);
             if (reviews == null || User.Identity.Name != reviews.Utilizador.UserName)
             {
-                if (!User.IsInRole("Admin")) { 
+                if (!User.IsInRole("Admin"))
+                {
+                    TempData["Error"] = "Unexpected error";
                     return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
                 }
             }

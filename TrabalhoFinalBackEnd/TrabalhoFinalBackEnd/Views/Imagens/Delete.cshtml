@@ -5,20 +5,23 @@
 }
 
 <h2>@ViewBag.filme.Nome</h2>
-
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
 <h3>Are you sure you want to delete this image?</h3>
 <div>
     <hr />
-    
 
-    @using (Html.BeginForm()) {
+
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <img src="/Imagens/@Model.Nome" style="max-height:600px; max-width:800px;" />
-        <hr />
-        <input type="submit" value="Delete" class="btn btn-default" />
-        @Html.ActionLink("Back to Edit Filme", "Edit", "Filmes", new { id = ViewBag.filme.IdFilme }, null)
-    </div>
+        <div class="form-actions no-color">
+            <img src="/Imagens/@Model.Nome" style="max-height:600px; max-width:800px;" />
+            <hr />
+            <input type="submit" value="Delete" class="btn btn-default" />
+            @Html.ActionLink("Back to Edit Filme", "Edit", "Filmes", new { id = ViewBag.filme.IdFilme }, null)
+        </div>
     }
 </div>

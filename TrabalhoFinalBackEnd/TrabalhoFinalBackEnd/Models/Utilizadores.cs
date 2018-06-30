@@ -18,7 +18,9 @@ namespace TrabalhoFinalBackEnd.Models
 
         [Key]
         public int ID { get; set; }
-        
+
+        public string Nome { get; set; }
+
         public string UserName { get; set; }
 
         public virtual ICollection<Reviews> ListaReviews { get; set; }

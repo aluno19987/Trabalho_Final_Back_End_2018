@@ -5,7 +5,9 @@
 }
 
 <h2>Details</h2>
-
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
 <div>
     <h4>Personagens</h4>
     <hr />

@@ -5,12 +5,14 @@
 }
 
 <h2>@ViewBag.filme.Nome</h2>
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
 
-
-@using (Html.BeginForm("Create", "Imagens", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+@using (Html.BeginForm("Create", "Imagens", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Add Image</h4>
         <hr />
@@ -22,7 +24,7 @@
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.HiddenFor(model=> model.FilmeFK)
+        @Html.HiddenFor(model => model.FilmeFK)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Add Image" class="btn btn-default" />

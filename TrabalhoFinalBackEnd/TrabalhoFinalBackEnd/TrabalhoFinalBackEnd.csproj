@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonagensController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\UtilizadoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -304,6 +305,7 @@
     <Content Include="Views\Personagens\Details.cshtml" />
     <Content Include="Views\Personagens\Edit.cshtml" />
     <Content Include="Views\Filmes\_Index2Partial.cshtml" />
+    <Content Include="Views\Utilizadores\_UtilizadorPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

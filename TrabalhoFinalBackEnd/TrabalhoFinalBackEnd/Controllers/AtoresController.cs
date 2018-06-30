@@ -26,12 +26,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index");
             }
             Atores atores = db.Atores.Find(id);
             if (atores == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index");
             }
             return View(atores);
         }
@@ -57,6 +59,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 return RedirectToAction("Index");
             }
 
+            TempData["Error"] = "Unexpected error";
             return View(atores);
         }
 
@@ -66,12 +69,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index");
             }
             Atores atores = db.Atores.Find(id);
             if (atores == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index");
             }
             return View(atores);
         }
@@ -89,6 +94,7 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Unexpected error";
             return View(atores);
         }
 
@@ -98,12 +104,14 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index");
             }
             Atores atores = db.Atores.Find(id);
             if (atores == null)
             {
-                return HttpNotFound();
+                TempData["Error"] = "Unexpected error";
+                return RedirectToAction("Index");
             }
             return View(atores);
         }

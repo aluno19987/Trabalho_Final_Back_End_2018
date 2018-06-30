@@ -5,12 +5,14 @@
 }
 
 <h2>@ViewBag.Filme.Nome</h2>
+<span class="alert" style="color:red;">
+    @(TempData["Error"] ?? string.Empty)
+</span><br />
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>New Reviews</h4>
         <hr />
@@ -48,7 +50,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Movie", "Details", "Filmes",new { id = ViewBag.Filme.IdFilme},null)
+    @Html.ActionLink("Back to Movie", "Details", "Filmes", new { id = ViewBag.Filme.IdFilme }, null)
 </div>
 
 @section Scripts {
