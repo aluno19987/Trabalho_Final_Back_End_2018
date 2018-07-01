@@ -22,14 +22,20 @@ namespace TrabalhoFinalBackEnd.Controllers
         public ActionResult Index( int? idCategoria)
         {
             var model = db.Filmes.ToList();
+            //se o id categoria nao for null e se existir essa categoria
             if (idCategoria != null && idCategoria <= db.Categorias.Count())
             {
+                //ira buscar a base de dados a categoria
                 var Categoria = db.Categorias.Find(idCategoria);
+                //ira buscar lista de categorias
                 var filmes = db.Filmes.ToList();
+                //por cada filme na lista de categorias
                 foreach (var filme in filmes)
                 {
+                    //se o filme não pertencer a categorias
                     if (!Categoria.ListaFilmes.Contains(filme))
                     {
+                        //remove do model
                         model.Remove(filme);
                     }
                 }
@@ -63,6 +69,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             var pontuacao = 0;
             for (int i = 0; i < listaFilme.Count(); i++)
             {
+                pontuacao = 0;
                 int tamanho = listaFilme[i].ListaReviews.Count();
                 foreach (var review in listaFilme[i].ListaReviews)
                 {
@@ -85,17 +92,24 @@ namespace TrabalhoFinalBackEnd.Controllers
         // GET: Filmes/Details/5
         public ActionResult Details(int? id)
         {
+            //se id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
+            //se o filme nao existir
             if (filmes == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
+            //calculo da pontuação dos filmes
             var reviews = db.Reviews.Where(dd => dd.FilmeFK == filmes.IdFilme).ToList();
             var numReviews = db.Reviews.Where(dd => dd.FilmeFK == filmes.IdFilme).Count();
             var pontuacao=0;
@@ -144,6 +158,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             // atribuir o ID ao novo Filme
             filme.IdFilme = novoID;
             
+            //se a lista de categorias selecionada for diferente de null adiciona a categoria ao filme
             if (idCategorias != null) { 
                 var Categorias = db.Categorias.ToList();
             
@@ -155,26 +170,29 @@ namespace TrabalhoFinalBackEnd.Controllers
                     }
                 }
             }
+            //edita a string o trailer
             filme.Trailer = filme.Trailer.Substring(32);
+            //cria o nome para a fotografia
             string nomeFotografia = "img_cartaz_" + filme.IdFilme + ".jpg";
+            //cria o caminho para a foto
             string caminhoParaFotografia = Path.Combine(Server.MapPath("~/ImagensCartaz/"), nomeFotografia); // indica onde a imagem será guardada
             
             // guardar o nome da imagem na BD
             filme.Cartaz = nomeFotografia;
+            //se nao existir imagem
             if (fileUploadCartaz == null)
             {
-                // não há imagem...
-                ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
-                return View(filme); // reenvia os dados do 'Agente' para a View
+                //cria mensagem de erro
+                ModelState.AddModelError("", "Image not provided"); 
+                //redireciona para a view create 
+                return View(filme); 
             }
 
 
-            // determinar o ID da nova imagem
+            // determinar o ID das novas imagens
             int imgID = 0;
             // *****************************************
-            // proteger a geração de um novo ID
-            // *****************************************
-            // determinar o nº de Filme na tabela
+            // determinar o nº de imagens na tabela
             if (db.Imagens.Count() == 0)
             {
                 imgID = 1;
@@ -184,16 +202,19 @@ namespace TrabalhoFinalBackEnd.Controllers
                 imgID = db.Imagens.Max(a => a.IdImg) + 1;
             }
 
+            //por cada imagem 
             for (var i = 0; i < files.Length;i++)
             {
                 var img = files[i];
                 var imagem = new Imagens();
 
-                // atribuir o ID ao novo Filme
+                // atribuir o ID da nova imagem
                 imagem.IdImg = novoID;
                 imagem.FilmeFK = filme.IdFilme;
 
+                //criar o nome da nova imagem 
                 string nomeImg = "img_" + imagem.IdImg + ".jpg";
+                //criar o caminho da nova imagem
                 string pathFotografia = Path.Combine(Server.MapPath("~/imagens/"), nomeImg); // indica onde a imagem será guardada
 
                 // guardar o nome da imagem na BD
@@ -223,16 +244,21 @@ namespace TrabalhoFinalBackEnd.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.listaDeCategorias = db.Categorias.ToList();
+            //se o id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
-
+            //se nao existir o filme
             if (filmes == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
 
@@ -326,17 +352,21 @@ namespace TrabalhoFinalBackEnd.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
+            //se id for null
             if (id == null)
             {
-
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             Filmes filmes = db.Filmes.Find(id);
+            //se o filme não existir
             if (filmes == null)
             {
-
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             return View(filmes);

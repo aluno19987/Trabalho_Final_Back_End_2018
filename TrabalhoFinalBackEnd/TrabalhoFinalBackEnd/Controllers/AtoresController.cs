@@ -24,15 +24,21 @@ namespace TrabalhoFinalBackEnd.Controllers
         // GET: Atores/Details/5
         public ActionResult Details(int? id)
         {
+            //se id null
             if (id == null)
             {
+                //gera mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             Atores atores = db.Atores.Find(id);
+            //se o ator não existir
             if (atores == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             return View(atores);
@@ -58,8 +64,10 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            //se model state for invalido 
+            //gera mensagem de erro
             TempData["Error"] = "Unexpected error";
+            //retorna para view create atores
             return View(atores);
         }
 
@@ -67,15 +75,21 @@ namespace TrabalhoFinalBackEnd.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
+            //se o id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             Atores atores = db.Atores.Find(id);
+            //se o ator nao existir
             if (atores == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
             return View(atores);
@@ -94,7 +108,10 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            //se o model state nao for valido
+            //cria mensagem de erro
             TempData["Error"] = "Unexpected error";
+            //retorna para a view edit ator
             return View(atores);
         }
 
@@ -102,15 +119,21 @@ namespace TrabalhoFinalBackEnd.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
+            //se o id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //retorna para o index
                 return RedirectToAction("Index");
             }
             Atores atores = db.Atores.Find(id);
+            //se o ator não existir
             if (atores == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //retorna para o index
                 return RedirectToAction("Index");
             }
             return View(atores);

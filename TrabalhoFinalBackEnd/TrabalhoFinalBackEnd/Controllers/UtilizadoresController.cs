@@ -10,6 +10,7 @@ using TrabalhoFinalBackEnd.Models;
 
 namespace TrabalhoFinalBackEnd.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UtilizadoresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -22,10 +22,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">@Html.ActionLink("Films", "Index", "Filmes")</li>
-                    <li  class="nav-item">@Html.ActionLink("Actors", "Index", "Atores")</li>
+                    <li class="nav-item">@Html.ActionLink("Actors", "Index", "Atores")</li>
                     @{Html.RenderAction("PartialIndex", "Categorias", null);}
-                    <li  class="nav-item">@Html.ActionLink("About", "About", "Home")</li>
-                    <li  class="nav-item">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Users", "Index", "Utilizadores")
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

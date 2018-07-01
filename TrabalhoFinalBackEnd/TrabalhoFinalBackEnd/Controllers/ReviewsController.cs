@@ -32,7 +32,9 @@ namespace TrabalhoFinalBackEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdReview,TituloReview,Review,NStars,FilmeFK")] Reviews reviews)
         {
+            //procura os dados do utilizador
             var utilizador =db.Utilizadores.Where(un => un.UserName == User.Identity.Name).Single();
+            //atribui o id do utilizador a review
             reviews.UtilizadorFK = utilizador.ID;
             if (ModelState.IsValid)
             {
@@ -41,26 +43,37 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", "Filmes" , new { id = reviews.FilmeFK });
             }
-
+            //se o model state nao for valido
+            //cria mensagem de erro
             TempData["Error"] = "Unexpected error";
             ViewBag.FilmeFK = new SelectList(db.Filmes, "IdFilme", "Nome", reviews.FilmeFK);
+            //redireciona para a view
             return View(reviews);
         }
 
         // GET: Reviews/Edit/5
         public ActionResult Edit(int? id)
         {
+            //se id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index dos filmes
                 return RedirectToAction("Index", "Filmes", null);
             }
             ViewBag.Filme = db.Reviews.Find(id).Filme.Nome;
             Reviews reviews = db.Reviews.Find(id);
-            if (reviews == null || User.Identity.Name!=reviews.Utilizador.UserName || !User.IsInRole("Admin"))
+            //se a rev
+            if (reviews == null || User.Identity.Name!=reviews.Utilizador.UserName)
             {
-                TempData["Error"] = "Unexpected error";
-                return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+                if (!User.IsInRole("Admin") || reviews == null)
+                {
+                    //cria mensagem de erro
+                    TempData["Error"] = "Unexpected error";
+                    //redireciona para o index do filme
+                    return RedirectToAction("index", "Filmes");
+                }
             }
             return View(reviews);
         }
@@ -75,11 +88,11 @@ namespace TrabalhoFinalBackEnd.Controllers
 
             if (ModelState.IsValid)
             {
+                //atribui a data
                 reviews.Data = DateTime.Now;
                 db.Entry(reviews).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            TempData["Error"] = "Unexpected error";
             return RedirectToAction("Details","Filmes", new { id = reviews.FilmeFK});
         }
 
@@ -88,6 +101,7 @@ namespace TrabalhoFinalBackEnd.Controllers
         {
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
                 return RedirectToAction("Index", "Filmes", null);
             }
@@ -96,8 +110,10 @@ namespace TrabalhoFinalBackEnd.Controllers
             {
                 if (!User.IsInRole("Admin"))
                 {
+                    //cria mensagem de erro
                     TempData["Error"] = "Unexpected error";
-                    return RedirectToAction("Details", "Filmes", new { id = reviews.FilmeFK });
+                    //redireciona para o index dos filmes
+                    return RedirectToAction("Index", "Filmes");
                 }
             }
             return View(reviews);

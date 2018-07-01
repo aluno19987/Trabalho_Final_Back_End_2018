@@ -25,8 +25,7 @@ namespace TrabalhoFinalBackEnd.Controllers
 
         public PartialViewResult PartialIndex()
         {
-
-            return PartialView("~/Views/Shared/_CategoriasPartial.cshtml", db.Categorias.ToList());
+            return PartialView("~/Views/Shared/_CategoriasPartial.cshtml", db.Categorias.ToList().OrderBy(d=>d.Nome));
         }
 
         // GET: Categorias/Create
@@ -49,8 +48,10 @@ namespace TrabalhoFinalBackEnd.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            //se o model state não for valido
+            //cria mensagem de erro
             TempData["Error"] = "Unexpected error";
+            //redireciona para a view create categorias
             return View(categorias);
         }
 
@@ -58,15 +59,21 @@ namespace TrabalhoFinalBackEnd.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
+            //se o id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index dos filmes
                 return RedirectToAction("Index", "Filmes", null);
             }
             Categorias categorias = db.Categorias.Find(id);
+            //se a categoria nao existir
             if (categorias == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index dos filmes
                 return RedirectToAction("Index", "Filmes", null);
             }
             return View(categorias);

@@ -13,20 +13,20 @@ namespace Trabalho_Final.Models
         [Key]
         public int IdReview { get; set; }
 
-        //[Required(ErrorMessage = "The {0} is required!")]
+        [Required(ErrorMessage = "The {0} is required!")]
         [Display(Name = "Title")]
         public string TituloReview { get; set; }
 
-        //[Required(ErrorMessage = "The {0} is required!")]
+        [Required(ErrorMessage = "The {0} is required!")]
         [Display(Name = "Review")]
         public string Review { get; set; }
 
-        //[Required(ErrorMessage = "The {0} is required!")]
+        [Required(ErrorMessage = "The {0} is required!")]
         [Display(Name = "Number of Stars")]
         public int NStars { get; set; }
 
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Data { get; set; }
 
         [ForeignKey("Filme")]

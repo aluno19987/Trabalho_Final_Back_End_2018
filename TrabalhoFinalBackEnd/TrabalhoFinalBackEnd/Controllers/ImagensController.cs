@@ -37,7 +37,7 @@ namespace TrabalhoFinalBackEnd.Controllers
             // *****************************************
             // proteger a geração de um novo ID
             // *****************************************
-            // determinar o nº de Filme na tabela
+            // determinar o nº de Imagem na tabela
             if (db.Imagens.Count() == 0)
             {
                 novoID = 1;
@@ -46,19 +46,22 @@ namespace TrabalhoFinalBackEnd.Controllers
             {
                 novoID = db.Imagens.Max(a => a.IdImg) + 1;
             }
-            // atribuir o ID ao novo Filme
+            // atribuir o ID a nova imagem
             imagens.IdImg = novoID;
             
+            //cria o nome para imagem
             string nomeFotografia = "img_" + imagens.IdImg + ".jpg";
+            //cria o caminho para a nova imagem
             string caminhoParaFotografia = Path.Combine(Server.MapPath("~/Imagens/"), nomeFotografia); // indica onde a imagem será guardada
 
             // guardar o nome da imagem na BD
             imagens.Nome = nomeFotografia;
             if (fileUpload == null)
             {
-                // não há imagem...
-                ModelState.AddModelError("", "Image not provided"); // gera MSG de erro
-                return RedirectToAction("Create",new { FilmeFk = imagens.FilmeFK}); // reenvia os dados do 'Personagem' para a View
+                //cria mensagem de erro
+                ModelState.AddModelError("", "Image not provided");
+                //redireciona para o create
+                return RedirectToAction("Create",new { FilmeFk = imagens.FilmeFK}); 
             }
             
             if (ModelState.IsValid)
@@ -79,16 +82,22 @@ namespace TrabalhoFinalBackEnd.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
+            //se id for null
             if (id == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para index dos filme
                 return RedirectToAction("Index", "Filmes", null);
             }
             Imagens imagens = db.Imagens.Find(id);
             ViewBag.filme = imagens.Filme;
+            //se imagem nao existir
             if (imagens == null)
             {
+                //cria mensagem de erro
                 TempData["Error"] = "Unexpected error";
+                //redireciona para o index dos filmes
                 return RedirectToAction("Index", "Filmes", null);
             }
             return View(imagens);

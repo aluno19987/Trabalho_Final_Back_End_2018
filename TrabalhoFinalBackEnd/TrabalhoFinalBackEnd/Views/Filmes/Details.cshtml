@@ -125,16 +125,16 @@
 </div>
 
 
-@section Scripts {
-    @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
+    @section Scripts {
+        @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
 
-    <script>
-        $(document).ready(function () {
-            $('#myModal').on('show.bs.modal', function (e) {
-                var src = $(e.relatedTarget).attr('src');
-                $(".img-responsive").attr("src", src);
-                $("#imgNovaTab").attr("href", src);
+        <script>
+            $(document).ready(function () {
+                $('#myModal').on('show.bs.modal', function (e) {
+                    var src = $(e.relatedTarget).attr('src');
+                    $(".img-responsive").attr("src", src);
+                    $("#imgNovaTab").attr("href", src);
+                });
             });
-        });
-    </script>
-}
+        </script>
+    }

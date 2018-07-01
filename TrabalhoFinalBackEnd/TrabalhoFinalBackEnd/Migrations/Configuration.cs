@@ -37,7 +37,8 @@ namespace TrabalhoFinalBackEnd.Migrations
                  new Filmes {IdFilme=2, Nome="Deadpool", DataLancamento=new DateTime(2016,2,11), Realizador="Tim Miller",Companhia="Marvel", Duracao=108,Resumo="A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment that leaves him with accelerated healing powers and a quest for revenge." , Trailer="Xithigfg7dA", Cartaz="img_cartaz_2.jpg"},
                  new Filmes {IdFilme=3, Nome="The Shape of Water", DataLancamento=new DateTime(2018,2,1), Realizador="Guillermo del Toro",Companhia="Fox Searchlight Pictures", Duracao=123,Resumo="A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment that leaves him with accelerated healing powers and a quest for revenge." , Trailer="XFYWazblaUA", Cartaz="img_cartaz_3.jpg"},
                  new Filmes {IdFilme=4, Nome="CHIPS", DataLancamento=new DateTime(2017,3,23), Realizador="Dax Shepard",Companhia="Warner Bros.", Duracao=100, Resumo="A rookie officer is teamed with a hardened pro at the California Highway Patrol, though the newbie soon learns his partner is really an undercover Fed investigating a heist that may involve some crooked cops.", Trailer="0IfqqUTW-i4", Cartaz="img_cartaz_4.jpg"},
-                 new Filmes {IdFilme=5, Nome="Passengers", DataLancamento=new DateTime(2016,12,22), Realizador="Morten Tyldum", Companhia="Sony Pictures Entertainment", Duracao=116, Resumo="A spacecraft traveling to a distant colony planet and transporting thousands of people has a malfunction in its sleep chambers. As a result, two passengers are awakened 90 years early.", Trailer="7BWWWQzTpNU", Cartaz="img_cartaz_5.jpg"}
+                 new Filmes {IdFilme=5, Nome="Passengers", DataLancamento=new DateTime(2016,12,22), Realizador="Morten Tyldum", Companhia="Sony Pictures Entertainment", Duracao=116, Resumo="A spacecraft traveling to a distant colony planet and transporting thousands of people has a malfunction in its sleep chambers. As a result, two passengers are awakened 90 years early.", Trailer="7BWWWQzTpNU", Cartaz="img_cartaz_5.jpg"},
+                 new Filmes {IdFilme=6, Nome="Incredibles", DataLancamento=new DateTime(2018,6,28), Realizador="Brad Bird", Companhia="Disney", Duracao=118, Resumo="Bob Parr (Mr. Incredible) is left to care for the kids while Helen (Elastigirl) is out saving the world.", Trailer="i5qOzqD9Rms", Cartaz="img_cartaz_6.jpg"}
             };
             filmes.ForEach(ff => context.Filmes.AddOrUpdate(f => f.IdFilme, ff));
             context.SaveChanges();
@@ -45,12 +46,12 @@ namespace TrabalhoFinalBackEnd.Migrations
             //*********************************************************************
             // adiciona Utilizadores
             var utilizadores = new List<Utilizadores> {
-                    new Utilizadores {ID=1,Nome="Utilizador1",UserName="util1@mail.pt"},
-                    new Utilizadores {ID=2,Nome="Utilizador2",UserName="util2@mail.pt"},
-                    new Utilizadores {ID=3,Nome="Utilizador3",UserName="util3@mail.pt"},
-                    new Utilizadores {ID=4,Nome="Utilizador4",UserName="util4@mail.pt"},
-                    new Utilizadores {ID=5,Nome="Utilizador5",UserName="util5@mail.pt"},
-                    new Utilizadores {ID=6,Nome="Administrator",UserName="admin@mail.pt"},
+                    new Utilizadores {ID=1,Nome="Utilizador1", DataNascimento=new DateTime(1988,5,23),UserName="util1@mail.pt"},
+                    new Utilizadores {ID=2,Nome="Utilizador2",DataNascimento=new DateTime(2000,1,13),UserName="util2@mail.pt"},
+                    new Utilizadores {ID=3,Nome="Utilizador3",DataNascimento=new DateTime(1968,11,22),UserName="util3@mail.pt"},
+                    new Utilizadores {ID=4,Nome="Utilizador4",DataNascimento=new DateTime(1974,9,30),UserName="util4@mail.pt"},
+                    new Utilizadores {ID=5,Nome="Utilizador5",DataNascimento=new DateTime(1997,3,3),UserName="util5@mail.pt"},
+                    new Utilizadores {ID=6,Nome="Administrator",DataNascimento=new DateTime(1997,6,17),UserName="admin@mail.pt"},
                 };
             utilizadores.ForEach(oo => context.Utilizadores.AddOrUpdate(o => o.ID, oo));
             context.SaveChanges();
@@ -87,7 +88,7 @@ namespace TrabalhoFinalBackEnd.Migrations
                     Review ="Deadpool is a triumph of artistic vision over studio interference. Little credit should be given to 20th Century Fox, as they had zero faith in the success of a Deadpool movie. To put things into perspective, Ryan Reynolds fought for this film back in 2004 when Blade: Trinity was released. Reynolds and co. went to shoot test footage that was then leaked online by Reynolds because Fox had no intentions to release it to the public. Finally, after years and years of BEGGING to the studio and the overwhelming positive responses of the test footage from the public, Fox didn't even tell Reynolds and co. that the film was greenlit. They had to find out online like the rest of us plebeians. If that sounds bad, Fox even cut their budget by $7 million AT THE LAST MINUTE, which caused the writers to scratch some action sequences that I'm sure would've been great to see. " +
                     "Deadpool now has the biggest opening weekend in the month of February (surpassing Fifty Shades of Grey), the biggest opening weekend for 20th Century Fox(surpassing all the X - Men films), and the biggest opening weekend for an R rated film EVER(surpassing The Matrix: Reloaded).With all that being said, Deadpool is a hilariously entertaining film that works mainly because of Reynolds himself.His comedic skills pay off gloriously as the titular character, who gives so many quips in one instance that some jokes will be missed.Of course, credit should be given to the writers too(AKA: The Real Heroes Here), and it's impressive that this is Tim Miller's directorial debut.The action sequences and pacing are so good that you'd think this came from a veteran director. " +
                     " From the ingenious opening credits to the subversive ending, Deadpool constantly upends clichés and tropes you're used to seeing in superhero flicks in the past few years. What's great here is the filmmakers had something weird and perverse and just went with it.Jokes about pedophilia, pegging, and sex run rampant, but it's never really dark, despite the mature subject matter. On top of that, it's also very refreshing to see a pansexual superhero in such a big studio film.It's unheard of these days. Fox and other studios, learn from this success. It's not the fact that a hard R - rated film can do well, it's that Deadpool also happens to be very good, most likely because you, Fox, actually gave the filmmakers the creative freedom to do whatever the hell they wanted.",
-                    NStars =8, Data=new DateTime(2016,2,15), FilmeFK=2, UtilizadorFK=1},
+                    NStars =9, Data=new DateTime(2016,2,15), FilmeFK=2, UtilizadorFK=1},
                 new Reviews {IdReview=6, TituloReview="Best Movie I Have Seen In A Long Time",
                     Review ="Firstly I would like to state that it is completely hilarious reading reviews with One Star because the movie had \"Foul Language\" and \"Sex Scenes\" or that someone had no idea that the movie was inappropriate for their 9 year old kid. Dead Pool is rated R and with 3 minutes of research you could have determined if this movie was for you or not With that being said I will not delve into the plot but the acting and writing were fantastic. Ryan Reynolds nailed this role. If you are easily offended by violence, language, or nudity this is not the movie for you but if you have a sense of humor and want to be entertained for 2 straight hours you will love this movie.",
                     NStars =10, Data=new DateTime(2016,2,17), FilmeFK=2, UtilizadorFK=2},
@@ -155,14 +156,24 @@ namespace TrabalhoFinalBackEnd.Migrations
                     NStars =9, Data=new DateTime(2017,12,23), FilmeFK=5, UtilizadorFK=4},
                 new Reviews {IdReview=20, TituloReview="Good ideas, Bad scenario",
                     Review ="I had really great expectations for this movie, and maybe that's the reason why I was so disappointed. Of course, all the actors are great, and even though the direction is not bad, it's really a typical love movie scenario, with the doubt at the beginning, the intense love, the betrayal, and finally the traditional happy ending. That could've been good without all the inconsistencies there are. For example, why didn't they thought to resurrect the captain, just as Aurora did for Jim? And there was enough place for both of them in the end. It would be Titanic all over again if Rose had decided to stay in the water with Jack. Not a bad movie, some ideas are great : leaving a man alone with his thoughts and robots to see his attitude evolve is interesting, the fact that he sacrificed a life instead of staying alone too, but those ideas could've been pushed so much further if they did not decided to focus on their love story. Honorable mention to Arthur, the best character in my opinion.",
-                    NStars =8, Data=new DateTime(2017,2,26), FilmeFK=5, UtilizadorFK=5}
+                    NStars =8, Data=new DateTime(2017,2,26), FilmeFK=5, UtilizadorFK=5},
+                new Reviews {IdReview=21, TituloReview="A satisfying sequel the whole family will enjoy",
+                    Review ="Fourteen years after the original, writer/director Brad Bird returns to helm the second installment of The Incredibles. The movie landscape has changed greatly since then. Many moviegoers may not realize that The Incredibles came out four years before Iron-Man, which launched the \"Marvel MCU.\" So, for any fans who love superhero movies, don't just thank Robert Downey Jr. for kicking things off. Thank Brad Bird. For fans who are tired of the oversaturation of superhero movies, still thank Brad Bird because The Incredibles is a truly wonderful film. The sequel doesn't quite reach the lofty standard of the original, which would have been nearly impossible, what with the originality and seminal nature of film, the characters and the exceptional villain. But Incredibles 2 does boast improvements to the visuals.I advise you to sit relatively close and take a good look at the detail of every scene.The lighting, the color, the movement - it's all immaculate. In a visual sense, this movie is a marvelous achievement. " +
+                    "The weakest aspect of the movie is the villain. The villain is obvious, predictable and unclear in his or her ideology.I get the sense that all the necessary pieces were there, but the filmmakers couldn't quite put together the puzzle. Fear not, the villain's shortcomings are certainly not enough to spoil the movie. It has the appropriate blend of action, thoughtful commentary for the adults and silly jokes for the kids. I opted not to mention the plot at all because I thought, \"why bother?\" The Incredibles have to stop a villain, and they also deal with other issues.Great, you get it.Now go see this movie.",
+                    NStars =7, Data=new DateTime(2018,6,19), FilmeFK=6, UtilizadorFK=2},
+                new Reviews {IdReview=22, TituloReview="Worth the 14-year wait",
+                    Review ="Great Movie! This movie seems to really improve on the original, with the same memorable characters such as Mr. Incredible, Elastigirl, and Edna, with new break-out characters, notably Jack-Jack. Micheal Giacchino nailed the score, and like other Pixar/Disney films there are amazing visuals. However, the thrill and brain of this movie, differentiates itself from the traditional cookie-cutter PG animated films. So far, it has been highly rated by critics, and could be one of the biggest releases of 2018. I can't wait for Incredibles 3.",
+                    NStars =8, Data=new DateTime(2018,6,8), FilmeFK=6, UtilizadorFK=4},
+                new Reviews {IdReview=23, TituloReview="Intense seizure warning!!!!!!!!!!!!",
+                    Review ="This movie is fantastic, loved the story and the characters. Where this movie loses points is in three separate continuous sequences of intense flashing. My sister is epileptic, and with no warnings we weren't prepared for any of it. She ended up seizing after the first sequence, and we had to cover her eyes for the their two. If you or any family members are sensitive to this sort of thing, AVOID THIS MOVIE.",
+                    NStars =7, Data=new DateTime(2018,6,16), FilmeFK=6, UtilizadorFK=5},
             };
             reviews.ForEach(rr => context.Reviews.AddOrUpdate(r => r.IdReview, rr));
             context.SaveChanges();
               
             var categorias = new List<Categorias> {
-                new Categorias {IdCategoria=1,Nome="Action", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[3] } },
-                new Categorias {IdCategoria=2,Nome="Adventure", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[2] } },
+                new Categorias {IdCategoria=1,Nome="Action", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[3] , filmes[5] } },
+                new Categorias {IdCategoria=2,Nome="Adventure", ListaFilmes=new List<Filmes>{ filmes[0], filmes[1], filmes[2], filmes[5] } },
                 new Categorias {IdCategoria=3,Nome="Comedy", ListaFilmes=new List<Filmes>{ filmes[1], filmes[3] } },
                 new Categorias {IdCategoria=4,Nome="Crime", ListaFilmes=new List<Filmes>{ filmes[3] } },
                 new Categorias {IdCategoria=5,Nome="Crossover", ListaFilmes=new List<Filmes>{ } },
@@ -178,7 +189,8 @@ namespace TrabalhoFinalBackEnd.Migrations
                 new Categorias {IdCategoria=15,Nome="Sci-Fi", ListaFilmes=new List<Filmes>{ filmes[4] } },
                 new Categorias {IdCategoria=16,Nome="Sport", ListaFilmes=new List<Filmes>{ } },
                 new Categorias {IdCategoria=17,Nome="Spy", ListaFilmes=new List<Filmes>{ } },
-                new Categorias {IdCategoria=18,Nome="Thriller", ListaFilmes=new List<Filmes>{ filmes[4] } }
+                new Categorias {IdCategoria=18,Nome="Thriller", ListaFilmes=new List<Filmes>{ filmes[4] } },
+                new Categorias {IdCategoria=19,Nome="Animation", ListaFilmes=new List<Filmes>{ filmes[5] } }
             };
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.IdCategoria, cc));
             context.SaveChanges();
@@ -198,7 +210,10 @@ namespace TrabalhoFinalBackEnd.Migrations
                 new Imagens {IdImg=12,Nome="Img_12.jpg",FilmeFK=4},
                 new Imagens {IdImg=13,Nome="Img_13.jpg",FilmeFK=5},
                 new Imagens {IdImg=14,Nome="Img_14.jpg",FilmeFK=5},
-                new Imagens {IdImg=15,Nome="Img_15.jpg",FilmeFK=5}
+                new Imagens {IdImg=15,Nome="Img_15.jpg",FilmeFK=5},
+                new Imagens {IdImg=16,Nome="Img_16.jpg",FilmeFK=6},
+                new Imagens {IdImg=17,Nome="Img_17.jpg",FilmeFK=6},
+                new Imagens {IdImg=18,Nome="Img_18.jpg",FilmeFK=6},
             };
             imagens.ForEach(ii => context.Imagens.AddOrUpdate(i => i.IdImg, ii));
             context.SaveChanges();
@@ -263,12 +278,20 @@ namespace TrabalhoFinalBackEnd.Migrations
                 new Atores {IdAtor=56,Nome="Isiah Whitlock Jr.",DataNascimento=new DateTime(1954,9,13),Imagem="img_ator_56.jpg"},
                 new Atores {IdAtor=57,Nome="Jane Kaczmarek",DataNascimento=new DateTime(1955,12,21),Imagem="img_ator_57.jpg"},
                 new Atores {IdAtor=58,Nome="Jennifer Lawrence",DataNascimento=new DateTime(1990,8,15),Imagem="img_ator_58.jpg"},
-                new Atores {IdAtor=59,Nome="Chris Pratt",DataNascimento=new DateTime(1979,6,21),Imagem="img_ator_59.jpg"},
-                new Atores {IdAtor=60,Nome="Michael Sheen",DataNascimento=new DateTime(1969,2,5),Imagem="img_ator_60.jpg"},
-                new Atores {IdAtor=61,Nome="Laurence Fishburne",DataNascimento=new DateTime(1961,7,30),Imagem="img_ator_61.jpg"},
-                new Atores {IdAtor=62,Nome="Andy Garcia",DataNascimento=new DateTime(1956,4,12),Imagem="img_ator_62.jpg"},
-                new Atores {IdAtor=63,Nome="Julee Cerda",DataNascimento=new DateTime(1900,1,1),Imagem="img_ator_63.jpg"}
-
+                //new Atores {IdAtor=59,Nome="Chris Pratt",DataNascimento=new DateTime(1979,6,21),Imagem="img_ator_59.jpg"},
+                new Atores {IdAtor=59,Nome="Michael Sheen",DataNascimento=new DateTime(1969,2,5),Imagem="img_ator_60.jpg"},
+                new Atores {IdAtor=60,Nome="Laurence Fishburne",DataNascimento=new DateTime(1961,7,30),Imagem="img_ator_61.jpg"},
+                new Atores {IdAtor=61,Nome="Andy Garcia",DataNascimento=new DateTime(1956,4,12),Imagem="img_ator_62.jpg"},
+                new Atores {IdAtor=62,Nome="Julee Cerda",DataNascimento=new DateTime(1970,1,1),Imagem="img_ator_63.jpg"},
+                new Atores {IdAtor=63,Nome="Craig T. Nelson",DataNascimento=new DateTime(1944,4,4),Imagem="img_ator_64.jpg"},
+                new Atores {IdAtor=64,Nome="Holly Hunter",DataNascimento=new DateTime(1958,3,20),Imagem="img_ator_65.jpg"},
+                new Atores {IdAtor=65,Nome="Sarah Vowell",DataNascimento=new DateTime(1969,12,27),Imagem="img_ator_66.jpg"},
+                new Atores {IdAtor=66,Nome="Huck Milner",DataNascimento=new DateTime(2008,7,15),Imagem="img_ator_67.jpg"},
+                new Atores {IdAtor=67,Nome="Catherine Keener",DataNascimento=new DateTime(1959,3,23),Imagem="img_ator_68.jpg"},
+                new Atores {IdAtor=68,Nome="Eli Fucile",DataNascimento=new DateTime(1993,4,20),Imagem="img_ator_69.jpg"},
+                new Atores {IdAtor=69,Nome="Bob Odenkirk",DataNascimento=new DateTime(1962,10,22),Imagem="img_ator_70.jpg"},
+                new Atores {IdAtor=70,Nome="Samuel L. Jackson",DataNascimento=new DateTime(1948,12,21),Imagem="img_ator_71.jpg"},
+                
             };
             atores.ForEach(aa => context.Atores.AddOrUpdate(a => a.IdAtor, aa));
             context.SaveChanges();
@@ -331,11 +354,19 @@ namespace TrabalhoFinalBackEnd.Migrations
                 new Personagens {IdPersonagem=56,Nome="Peterson",Imagem="img_pers_56.jpg",FilmeFK=4, AtorFK=56},
                 new Personagens {IdPersonagem=57,Nome="Captain Jane Lindel",Imagem="img_pers_57.jpg",FilmeFK=4, AtorFK=57},
                 new Personagens {IdPersonagem=58,Nome="Aurora Lane",Imagem="img_pers_58.jpg",FilmeFK=5, AtorFK=58},
-                new Personagens {IdPersonagem=59,Nome="Jim Preston",Imagem="img_pers_59.jpg",FilmeFK=5, AtorFK=59},
-                new Personagens {IdPersonagem=60,Nome="Arthur",Imagem="img_pers_60.jpg",FilmeFK=5, AtorFK=60},
-                new Personagens {IdPersonagem=61,Nome="Gus Mancuso",Imagem="img_pers_61.jpg",FilmeFK=5, AtorFK=61},
-                new Personagens {IdPersonagem=62,Nome="Captain Norris",Imagem="img_pers_62.jpg",FilmeFK=5, AtorFK=62},
-                new Personagens {IdPersonagem=63,Nome="Instructor (Hologram)",Imagem="img_pers_63.jpg",FilmeFK=5, AtorFK=63}
+                new Personagens {IdPersonagem=59,Nome="Jim Preston",Imagem="img_pers_59.jpg",FilmeFK=5, AtorFK=27},
+                new Personagens {IdPersonagem=60,Nome="Arthur",Imagem="img_pers_60.jpg",FilmeFK=5, AtorFK=59},
+                new Personagens {IdPersonagem=61,Nome="Gus Mancuso",Imagem="img_pers_61.jpg",FilmeFK=5, AtorFK=60},
+                new Personagens {IdPersonagem=62,Nome="Captain Norris",Imagem="img_pers_62.jpg",FilmeFK=5, AtorFK=61},
+                new Personagens {IdPersonagem=63,Nome="Instructor (Hologram)",Imagem="img_pers_63.jpg",FilmeFK=5, AtorFK=62},
+                new Personagens {IdPersonagem=64,Nome="Mr. Incredible",Imagem="img_pers_64.jpg",FilmeFK=6, AtorFK=63},
+                new Personagens {IdPersonagem=65,Nome="Elastigirl",Imagem="img_pers_65.jpg",FilmeFK=6, AtorFK=64},
+                new Personagens {IdPersonagem=66,Nome="Violet Parr",Imagem="img_pers_66.jpg",FilmeFK=6, AtorFK=65},
+                new Personagens {IdPersonagem=67,Nome="Dash",Imagem="img_pers_67.jpg",FilmeFK=6, AtorFK=66},
+                new Personagens {IdPersonagem=68,Nome="Evelyn Deavor",Imagem="img_pers_68.jpg",FilmeFK=6, AtorFK=67},
+                new Personagens {IdPersonagem=69,Nome="Jack-Jack Parr",Imagem="img_pers_69.jpg",FilmeFK=6, AtorFK=68},
+                new Personagens {IdPersonagem=70,Nome="Winston Deavor",Imagem="img_pers_70.jpg",FilmeFK=6, AtorFK=69},
+                new Personagens {IdPersonagem=71,Nome="Frozone",Imagem="img_pers_71.jpg",FilmeFK=6, AtorFK=70},
 
             };
             personagens.ForEach(pp => context.Personagens.AddOrUpdate(p => p.IdPersonagem, pp));
